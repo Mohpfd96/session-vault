@@ -14,7 +14,7 @@ export default defineConfig({
     description:
       'Manage isolated website sessions and accounts. Keep personal, work, and client logins separate in different tabs.',
     minimum_chrome_version: '120',
-    homepage_url: 'https://github.com',
+    homepage_url: 'https://mohpfd96.github.io/session-vault/',
     permissions: [
       'tabs',
       'activeTab',

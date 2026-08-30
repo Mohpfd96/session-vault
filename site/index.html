@@ -1,0 +1,338 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Session Vault — isolated logins in Chrome</title>
+    <meta
+      name="description"
+      content="Keep personal, work, and client accounts apart in different Chrome tabs. Session Vault isolates cookies per session, locally, without a second browser profile."
+    />
+    <link rel="canonical" href="https://mohpfd96.github.io/session-vault/" />
+    <meta name="theme-color" content="#0f766e" />
+    <meta property="og:title" content="Session Vault" />
+    <meta
+      property="og:description"
+      content="One website. Separate logins. Isolated cookie jars in Chrome — local-first, fail-closed."
+    />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://mohpfd96.github.io/session-vault/" />
+    <meta name="twitter:card" content="summary" />
+    <link rel="icon" href="./icon.svg" type="image/svg+xml" />
+    <link rel="stylesheet" href="./styles.css" />
+  </head>
+  <body>
+    <a class="skip" href="#main">Skip to content</a>
+    <header class="wrap nav">
+      <a class="brand" href="./">
+        <img src="./icon.svg" width="36" height="36" alt="" />
+        Session Vault
+      </a>
+      <nav class="nav-links" aria-label="Primary">
+        <a href="#how">How it works</a>
+        <a href="#privacy">Privacy</a>
+        <a href="#install">Install</a>
+        <a href="https://github.com/Mohpfd96/session-vault">GitHub</a>
+        <a class="btn btn-primary" href="#install">Load in Chrome</a>
+      </nav>
+    </header>
+
+    <main id="main">
+      <section class="wrap hero">
+        <div>
+          <p class="kicker">Chrome extension</p>
+          <h1>One website.<br />Separate logins.</h1>
+          <p class="lede">
+            Session Vault keeps personal, work, and client accounts apart in different
+            tabs. Same site in the address bar. Different cookie jars. Nothing leaves this
+            browser.
+          </p>
+          <div class="hero-actions">
+            <a class="btn btn-primary" href="#install">Install from source</a>
+            <a class="btn btn-ghost" href="https://github.com/Mohpfd96/session-vault">
+              View source
+            </a>
+          </div>
+          <div class="pills" aria-label="Highlights">
+            <span class="pill">Manifest V3</span>
+            <span class="pill">Chrome 120+</span>
+            <span class="pill">Local-only data</span>
+            <span class="pill">Fail-closed</span>
+          </div>
+        </div>
+
+        <div class="stage" aria-hidden="true">
+          <div class="stage-glow"></div>
+          <div class="popup">
+            <div class="popup-head">
+              <span class="glyph">G</span>
+              <div>
+                <h3>google.com</h3>
+                <p>3 sessions on this site</p>
+              </div>
+              <span class="chip">Isolated</span>
+            </div>
+            <div class="popup-list">
+              <div class="popup-row current">
+                <span class="stripe" style="background: #0f766e"></span>
+                <div>
+                  <strong>Work <span class="badge">This tab</span></strong>
+                  <span>Persistent · 2 tabs</span>
+                </div>
+              </div>
+              <div class="popup-row">
+                <span class="stripe" style="background: #c2410c"></span>
+                <div>
+                  <strong>Personal</strong>
+                  <span>Persistent · 1 tab</span>
+                </div>
+              </div>
+              <div class="popup-row">
+                <span class="stripe" style="background: #7c3aed"></span>
+                <div>
+                  <strong>Client A</strong>
+                  <span>Temporary · 1 tab</span>
+                </div>
+              </div>
+            </div>
+            <div class="popup-foot">
+              <span class="mini">Session</span>
+              <span class="mini ghost">Temporary</span>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <div class="wrap band">
+        <div>
+          <strong>Not a tab saver</strong>
+          <p>Session Buddy stores windows. This isolates accounts.</p>
+        </div>
+        <div>
+          <strong>Not a new profile</strong>
+          <p>One Chrome. Named sessions on the site you already opened.</p>
+        </div>
+        <div>
+          <strong>Wrong login never</strong>
+          <p>If isolation cannot be proven, the tab stays logged out.</p>
+        </div>
+        <div>
+          <strong>Stays on this device</strong>
+          <p>No cloud account. No telemetry. Export only if you choose.</p>
+        </div>
+      </div>
+
+      <section class="wrap" id="how">
+        <div class="section-head">
+          <p class="kicker">How it works</p>
+          <h2>A vault per login, not a second browser.</h2>
+          <p>
+            Chrome shares cookies across every tab of a site. Session Vault binds a tab to
+            a session, then serves that session’s cookies on the wire and in the page.
+          </p>
+        </div>
+        <div class="steps">
+          <article class="card">
+            <span class="num">1</span>
+            <h3>Open the site</h3>
+            <p>
+              Click a tab like mail.google.com, then open Session Vault from the toolbar.
+            </p>
+          </article>
+          <article class="card">
+            <span class="num">2</span>
+            <h3>Create a session</h3>
+            <p>
+              A new tab of that site opens, logged out. Sign in as work, personal, or a
+              client.
+            </p>
+          </article>
+          <article class="card">
+            <span class="num">3</span>
+            <h3>Repeat for each account</h3>
+            <p>
+              Each session keeps its own jar. Click a row later to open another tab of it.
+            </p>
+          </article>
+        </div>
+      </section>
+
+      <section class="wrap">
+        <div class="section-head">
+          <p class="kicker">Inside the vault</p>
+          <h2>Built to refuse the wrong cookies.</h2>
+        </div>
+        <div class="features">
+          <article class="card">
+            <h3>Virtual cookie jars</h3>
+            <p>
+              HTTP cookies live in IndexedDB on this device. Declarative Net Request sets
+              the request Cookie header for that tab only, and strips native Set-Cookie so
+              Chrome’s shared jar does not mix accounts.
+            </p>
+          </article>
+          <article class="card">
+            <h3>Fail-closed by default</h3>
+            <p>
+              Unbound, degraded, or unrecoverable tabs get no authentication cookies. A
+              logged-out page is the safe outcome. Cross-session leakage is treated as a
+              severity-zero defect.
+            </p>
+          </article>
+          <article class="card">
+            <h3>Page storage, namespaced</h3>
+            <p>
+              document.cookie, localStorage, IndexedDB, Cache Storage, and
+              BroadcastChannel are scoped to the session while the origin in the address
+              bar stays real.
+            </p>
+          </article>
+          <article class="card">
+            <h3>Temporary sessions</h3>
+            <p>
+              Spin up a disposable login with Alt+Shift+T. When the last tab of that
+              session closes, the jar goes with it.
+            </p>
+          </article>
+        </div>
+      </section>
+
+      <section class="wrap">
+        <div class="section-head">
+          <p class="kicker">Be precise</p>
+          <h2>What this is, and what it is not.</h2>
+        </div>
+        <div class="table-scroll">
+          <table class="compare">
+            <thead>
+              <tr>
+                <th></th>
+                <th>Session Vault</th>
+                <th>Tab managers</th>
+                <th>Chrome profiles</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>Job</td>
+                <td>Isolate logins on one site</td>
+                <td>Save and restore tab sets</td>
+                <td>Whole-browser identity</td>
+              </tr>
+              <tr>
+                <td>Same-site accounts</td>
+                <td>Yes, in parallel tabs</td>
+                <td>No</td>
+                <td>Yes, in another window</td>
+              </tr>
+              <tr>
+                <td>Data</td>
+                <td>Local jars only</td>
+                <td>Tab lists</td>
+                <td>Separate profile disk</td>
+              </tr>
+              <tr>
+                <td>Tradeoff</td>
+                <td>Not a full profile boundary</td>
+                <td>Does not isolate cookies</td>
+                <td>Heavy: duplicate setup</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+      <section class="wrap">
+        <div class="section-head">
+          <p class="kicker">Honesty</p>
+          <h2>Isolation has edges. We name them.</h2>
+          <p>
+            Strong for application cookies and page storage. Not a second Chromium
+            profile. Do not imply otherwise in high-assurance work.
+          </p>
+        </div>
+        <div class="limits">
+          <article class="card">
+            <h3>Isolated in V1</h3>
+            <p>
+              Request Cookie headers, native Set-Cookie absorption, document.cookie,
+              localStorage, IndexedDB names, Cache Storage, BroadcastChannel, and Web
+              Locks — between sessions, on managed sites.
+            </p>
+          </article>
+          <article class="card">
+            <h3>Not isolated</h3>
+            <p>
+              Existing Service Workers, SharedWorker, the browser HTTP cache, history,
+              bookmarks, Chrome sync, TLS client certs, the password manager,
+              fingerprints, and your IP address.
+            </p>
+          </article>
+        </div>
+      </section>
+
+      <section class="wrap" id="privacy">
+        <div class="privacy">
+          <div>
+            <p class="kicker">Privacy</p>
+            <h2>Your sessions never leave this machine.</h2>
+            <p>
+              No product analytics. No cloud account. No remote fonts in the extension.
+              Encrypted backups use a passphrase that is never stored. Read the
+              <a
+                href="https://github.com/Mohpfd96/session-vault/blob/main/docs/privacy.md"
+                >privacy notes</a
+              >
+              and
+              <a
+                href="https://github.com/Mohpfd96/session-vault/blob/main/docs/permissions.md"
+                >permissions</a
+              >
+              on GitHub.
+            </p>
+          </div>
+          <ul>
+            <li>Session metadata in chrome.storage.local</li>
+            <li>Tab bindings in chrome.storage.session</li>
+            <li>Cookie jars in extension IndexedDB</li>
+            <li>Optional encrypted .sessionvault export</li>
+          </ul>
+        </div>
+      </section>
+
+      <section class="wrap install" id="install">
+        <div class="section-head">
+          <p class="kicker">Install</p>
+          <h2>Load the unpacked build.</h2>
+          <p>
+            The Chrome Web Store listing is not published yet. Build locally, then load
+            the folder in chrome://extensions with Developer mode on.
+          </p>
+          <ol class="ol">
+            <li>Run the commands in the terminal</li>
+            <li>Open chrome://extensions</li>
+            <li>Enable Developer mode</li>
+            <li>Load unpacked → <code>.output/chrome-mv3</code></li>
+          </ol>
+        </div>
+        <pre><code>git clone https://github.com/Mohpfd96/session-vault.git
+cd session-vault
+pnpm install
+pnpm build</code></pre>
+      </section>
+    </main>
+
+    <footer class="wrap footer">
+      <span>Session Vault — isolated logins for Chrome</span>
+      <span>
+        <a href="https://github.com/Mohpfd96/session-vault">GitHub</a>
+        ·
+        <a href="https://github.com/Mohpfd96/session-vault/blob/main/docs/architecture.md"
+          >Architecture</a
+        >
+        ·
+        <a href="https://github.com/Mohpfd96/session-vault/blob/main/README.md">README</a>
+      </span>
+    </footer>
+  </body>
+</html>
