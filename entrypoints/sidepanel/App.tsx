@@ -267,7 +267,7 @@ function SessionDetailPane({
             </span>
             <h2 className="truncate text-base font-semibold">{session.session.name}</h2>
             {panel.snapshot.currentSessionId === session.session.id ? (
-              <Badge variant="success">Current tab</Badge>
+              <Badge variant="default">Current tab</Badge>
             ) : null}
           </div>
           <p className="text-muted-foreground mt-1 text-xs capitalize">

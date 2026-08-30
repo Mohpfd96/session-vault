@@ -99,7 +99,7 @@ export function SessionRow({
           <span className="flex items-center gap-1.5">
             <span className="block truncate text-sm font-medium">{session.name}</span>
             {current ? (
-              <Badge variant="success" className="px-1 py-0 text-[10px]">
+              <Badge variant="default" className="px-1.5 py-0 text-[10px]">
                 This tab
               </Badge>
             ) : null}
