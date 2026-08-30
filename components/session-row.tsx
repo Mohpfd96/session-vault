@@ -3,11 +3,7 @@ import type { MouseEvent, ReactNode } from 'react';
 import type { SessionListItem } from '@/app/types.ts';
 import { Badge } from '@/components/ui/badge.tsx';
 import { Button } from '@/components/ui/button.tsx';
-import {
-  Tooltip,
-  TooltipContent,
-  TooltipTrigger,
-} from '@/components/ui/tooltip.tsx';
+import { Tooltip, TooltipContent, TooltipTrigger } from '@/components/ui/tooltip.tsx';
 import { cn } from '@/lib/utils.ts';
 
 type SessionRowProps = {

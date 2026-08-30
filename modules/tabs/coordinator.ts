@@ -2,7 +2,11 @@ import type { DomainGroup } from '../domain/domain-group.ts';
 import type { SessionProfile } from '../domain/session-profile.ts';
 import type { TabBinding } from '../domain/tab-binding.ts';
 import type { SessionId, TabId } from '../domain/ids.ts';
-import { findManagedDomainGroup, hostFromUrl, matchesDomainGroup } from '../domains/matcher.ts';
+import {
+  findManagedDomainGroup,
+  hostFromUrl,
+  matchesDomainGroup,
+} from '../domains/matcher.ts';
 import type { IsolationProvider } from '../isolation/provider.ts';
 import { logger } from '../logging/index.ts';
 import { getTab, queryTabs } from '../adapters/chrome/tabs-adapter.ts';

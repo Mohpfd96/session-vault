@@ -219,7 +219,8 @@ function compileHealthyTabRules(
     );
   } else {
     for (const path of paths) {
-      const header = headerForPathPrefix(input.cookies, input.host, path, input.now) ?? '';
+      const header =
+        headerForPathPrefix(input.cookies, input.host, path, input.now) ?? '';
       const priority =
         path === '/'
           ? DNR_PRIORITIES.VIRTUAL_COOKIE_ROOT

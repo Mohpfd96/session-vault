@@ -123,8 +123,7 @@ export function useManagerController(): {
       return 'Unassigned';
     }
     return (
-      grouped.sites.find((site) => site.group.id === selectedSiteId)?.group.name ??
-      'Site'
+      grouped.sites.find((site) => site.group.id === selectedSiteId)?.group.name ?? 'Site'
     );
   }, [grouped.sites, selectedSiteId]);
 

@@ -236,9 +236,7 @@ function ManagerApp() {
                 Library
               </p>
               <NavButton
-                active={
-                  manager.view === 'sessions' && manager.selectedSiteId === 'all'
-                }
+                active={manager.view === 'sessions' && manager.selectedSiteId === 'all'}
                 label="All sites"
                 count={manager.totalCount}
                 onClick={() => selectSite('all')}
@@ -288,8 +286,7 @@ function ManagerApp() {
                 </p>
                 <NavButton
                   active={
-                    manager.view === 'sessions' &&
-                    manager.selectedSiteId === 'unassigned'
+                    manager.view === 'sessions' && manager.selectedSiteId === 'unassigned'
                   }
                   label="Unassigned"
                   count={manager.unassigned.length}
@@ -325,11 +322,7 @@ function ManagerApp() {
                   {manager.visibleSessions.length === 1 ? '' : 's'}
                 </p>
               </div>
-              <Button
-                variant="outline"
-                size="sm"
-                onClick={() => void manager.refresh()}
-              >
+              <Button variant="outline" size="sm" onClick={() => void manager.refresh()}>
                 <RefreshCwIcon className="size-3.5" />
                 Refresh
               </Button>

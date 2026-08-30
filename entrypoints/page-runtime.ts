@@ -19,7 +19,11 @@ function postPageRequest(payload: PageRequest): Promise<unknown> {
     }, 5_000);
 
     const onResponse = (event: MessageEvent): void => {
-      const data = event.data as { channel?: string; requestId?: string; payload?: unknown };
+      const data = event.data as {
+        channel?: string;
+        requestId?: string;
+        payload?: unknown;
+      };
       if (event.source !== window || data.channel !== CHANNEL.contentToPage) {
         return;
       }

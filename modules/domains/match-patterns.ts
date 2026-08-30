@@ -17,10 +17,7 @@ export function matchPatternsForEntry(entry: DomainEntry): readonly string[] {
       if (isIpHost(entry.domain) || !entry.includeSubdomains) {
         return [chromeHostMatchPattern(entry.domain)];
       }
-      return [
-        chromeHostMatchPattern(entry.domain),
-        `*://*.${entry.domain}/*`,
-      ];
+      return [chromeHostMatchPattern(entry.domain), `*://*.${entry.domain}/*`];
     }
     case 'url-pattern':
       return [entry.pattern];

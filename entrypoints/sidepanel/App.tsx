@@ -72,9 +72,7 @@ function SessionSidebar({
       <header className="flex items-center justify-between gap-2 border-b px-3 py-2.5">
         <div className="min-w-0">
           <h1 className="text-sm font-semibold">Sessions</h1>
-          <p className="text-muted-foreground truncate text-[11px]">
-            Isolated logins
-          </p>
+          <p className="text-muted-foreground truncate text-[11px]">Isolated logins</p>
         </div>
         <div className="flex items-center gap-1">
           <Button

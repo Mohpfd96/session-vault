@@ -73,8 +73,15 @@ export async function updateTabUrl(tabId: TabId, url: string): Promise<void> {
   await browser.tabs.update(tabId, { url });
 }
 
-function tabMatchesDestination(tabUrl: string | undefined, destinationUrl: string): boolean {
-  if (tabUrl === undefined || tabUrl === 'about:blank' || tabUrl.startsWith('chrome://')) {
+function tabMatchesDestination(
+  tabUrl: string | undefined,
+  destinationUrl: string,
+): boolean {
+  if (
+    tabUrl === undefined ||
+    tabUrl === 'about:blank' ||
+    tabUrl.startsWith('chrome://')
+  ) {
     return false;
   }
   try {

@@ -27,13 +27,7 @@ function SiteGlyph({
   const letter = label.trim().slice(0, 1).toUpperCase() || 'S';
   if (favIconUrl !== null) {
     return (
-      <img
-        src={favIconUrl}
-        alt=""
-        width={20}
-        height={20}
-        className="size-5 rounded-md"
-      />
+      <img src={favIconUrl} alt="" width={20} height={20} className="size-5 rounded-md" />
     );
   }
   return (
@@ -92,7 +86,10 @@ function PopupApp() {
             </p>
           </div>
           {siteReady && shouldShowIsolationChip(popup.snapshot.isolationStatus) ? (
-            <IsolationChip status={popup.snapshot.isolationStatus} className="text-[10px]" />
+            <IsolationChip
+              status={popup.snapshot.isolationStatus}
+              className="text-[10px]"
+            />
           ) : null}
           <Button
             variant="ghost"

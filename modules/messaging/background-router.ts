@@ -5,7 +5,12 @@ import { createSessionProfile } from '../domain/session-factory.ts';
 import { DomainError } from '../errors/domain-error.ts';
 import { sessionNotFound } from '../errors/index.ts';
 import { loadDomainGroups } from '../domains/load-groups.ts';
-import { findManagedDomainGroup, hostFromUrl, matchesDomainGroup, registrableDomain } from '../domains/matcher.ts';
+import {
+  findManagedDomainGroup,
+  hostFromUrl,
+  matchesDomainGroup,
+  registrableDomain,
+} from '../domains/matcher.ts';
 import type { IsolationProvider } from '../isolation/provider.ts';
 import { logger } from '../logging/index.ts';
 import {
@@ -161,13 +166,11 @@ export function createBackgroundRouter(ctx: RouterContext) {
     const sessions = await listSessions(localPort);
     const groups = await loadDomainGroups(localPort);
     const bindings = await bindingStore.getAll();
-    const siteSessions = filterSessionsForSite(
-      sessions,
-      groups,
-      site.host,
-      site.tabUrl,
+    const siteSessions = filterSessionsForSite(sessions, groups, site.host, site.tabUrl);
+    const sessionItems = toSessionListItems(
+      siteSessions,
+      tabCountsFromBindings(bindings),
     );
-    const sessionItems = toSessionListItems(siteSessions, tabCountsFromBindings(bindings));
 
     const currentSessionId =
       binding !== undefined && binding.sessionId !== UNASSIGNED_SESSION_ID
@@ -582,9 +585,7 @@ export function createBackgroundRouter(ctx: RouterContext) {
             session: await renameSiteSession(request.sessionId, request.name),
           });
         case 'ui.openSession':
-          return successResult(
-            await openSessionInNewTab(request.sessionId, senderTabId),
-          );
+          return successResult(await openSessionInNewTab(request.sessionId, senderTabId));
         default: {
           const exhaustive: never = request;
           return exhaustive;

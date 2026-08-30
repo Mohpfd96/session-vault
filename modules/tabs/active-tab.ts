@@ -95,10 +95,7 @@ export function displaySiteLabel(url: string | undefined): string {
   }
   try {
     const parsed = new URL(url);
-    if (
-      parsed.protocol === 'http:' ||
-      parsed.protocol === 'https:'
-    ) {
+    if (parsed.protocol === 'http:' || parsed.protocol === 'https:') {
       return parsed.hostname.length > 0 ? parsed.hostname : 'No website tab';
     }
     return 'Browser page';

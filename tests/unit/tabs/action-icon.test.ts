@@ -2,7 +2,10 @@ import { describe, expect, it } from 'vitest';
 import { asDomainGroupId, asSessionId, asTabId } from '../../../modules/domain/ids.ts';
 import type { TabBinding } from '../../../modules/domain/tab-binding.ts';
 import { UNASSIGNED_SESSION_ID } from '../../../modules/tabs/constants.ts';
-import { isToolbarIconFilled, shouldSyncToolbarIconOnTabUpdate } from '../../../modules/tabs/action-icon.ts';
+import {
+  isToolbarIconFilled,
+  shouldSyncToolbarIconOnTabUpdate,
+} from '../../../modules/tabs/action-icon.ts';
 
 function binding(overrides: Partial<TabBinding> = {}): TabBinding {
   return {

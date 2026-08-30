@@ -106,7 +106,7 @@ export function nextCycledId<T>(
     return items[0];
   }
   const length = items.length;
-  const nextIndex = ((index + delta) % length + length) % length;
+  const nextIndex = (((index + delta) % length) + length) % length;
   return items[nextIndex];
 }
 

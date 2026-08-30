@@ -13,10 +13,7 @@ import {
   isolationScriptFile,
   syncIsolationContentScripts,
 } from '../domains/sync-content-scripts.ts';
-import {
-  createChromeStorageLocalPort,
-  saveDomainGroups,
-} from '../persistence/index.ts';
+import { createChromeStorageLocalPort, saveDomainGroups } from '../persistence/index.ts';
 
 const localPort = createChromeStorageLocalPort();
 
@@ -41,10 +38,7 @@ export async function injectIsolationScript(tabId: number): Promise<void> {
   }
 }
 
-export async function injectTabTitleMarker(
-  tabId: number,
-  emoji: string,
-): Promise<void> {
+export async function injectTabTitleMarker(tabId: number, emoji: string): Promise<void> {
   try {
     await browser.scripting.executeScript({
       target: { tabId },
@@ -56,8 +50,7 @@ export async function injectTabTitleMarker(
         const apply = (): void => {
           const current = document.title;
           const stripped = current.replace(pattern, '');
-          const next =
-            stripped.length === 0 ? `${marker} ` : `${marker} ${stripped}`;
+          const next = stripped.length === 0 ? `${marker} ` : `${marker} ${stripped}`;
           if (current !== next) {
             document.title = next;
           }

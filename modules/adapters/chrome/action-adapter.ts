@@ -28,10 +28,7 @@ function roundRectPath(
   return path;
 }
 
-function paintToolbarIcon(
-  ctx: OffscreenCanvasRenderingContext2D,
-  filled: boolean,
-): void {
+function paintToolbarIcon(ctx: OffscreenCanvasRenderingContext2D, filled: boolean): void {
   ctx.clearRect(0, 0, 128, 128);
   const frame = roundRectPath(8, 8, 112, 112, 22);
   if (filled) {

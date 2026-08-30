@@ -45,9 +45,7 @@ export function applySessionMarker(name: string, emoji: string): string {
   return `${emoji} ${label}`;
 }
 
-export function pickNextSwatch(
-  sessions: readonly SessionProfile[],
-): SessionSwatch {
+export function pickNextSwatch(sessions: readonly SessionProfile[]): SessionSwatch {
   const usedEmojis = new Set(sessions.map((session) => session.icon));
   const usedColors = new Set(sessions.map((session) => session.color));
   for (const swatch of SESSION_SWATCHES) {
