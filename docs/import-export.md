@@ -1,6 +1,6 @@
 # Import and Export
 
-Versioned, validated backup formats for SessionVault data.
+Versioned, validated backup formats for Session Vault data.
 
 See also: [data-schema.md](./data-schema.md), [recovery.md](./recovery.md), [privacy.md](./privacy.md).
 

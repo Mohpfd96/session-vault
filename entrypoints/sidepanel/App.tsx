@@ -448,7 +448,7 @@ function DomainDetailView() {
             <h2 className="font-semibold tracking-wide uppercase">Isolation state</h2>
             <p className="text-muted-foreground">
               {domain.mode === 'managed'
-                ? 'This domain is managed by SessionVault. Tabs must be assigned to a session before sending cookies.'
+                ? 'This domain is managed by Session Vault. Tabs must be assigned to a session before sending cookies.'
                 : 'Isolation is not enabled for this domain group yet.'}
             </p>
           </section>
@@ -572,7 +572,7 @@ function SidePanelShell() {
       <SessionNameDialog
         open={renameOpen}
         title="Rename session"
-        description="This name is only shown in SessionVault."
+        description="This name is only shown in Session Vault."
         confirmLabel="Save"
         initialName={
           panel.selectedSession !== undefined

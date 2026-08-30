@@ -1,6 +1,6 @@
 # Compatibility
 
-SessionVault reports how completely isolation can be enforced for an origin. Levels are factual, never vague.
+Session Vault reports how completely isolation can be enforced for an origin. Levels are factual, never vague.
 
 See also: [isolation-model.md](./isolation-model.md), [service-worker-limitations.md](./service-worker-limitations.md).
 

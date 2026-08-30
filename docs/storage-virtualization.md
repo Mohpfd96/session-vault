@@ -1,6 +1,6 @@
 # Storage Virtualization
 
-SessionVault namespaces page-visible storage per `(sessionId, origin)` while keeping the same origin in the address bar. This document describes the page-runtime contract; cookie virtualization is covered in [cookie-engine.md](./cookie-engine.md).
+Session Vault namespaces page-visible storage per `(sessionId, origin)` while keeping the same origin in the address bar. This document describes the page-runtime contract; cookie virtualization is covered in [cookie-engine.md](./cookie-engine.md).
 
 See also: [isolation-model.md](./isolation-model.md), [service-worker-limitations.md](./service-worker-limitations.md).
 

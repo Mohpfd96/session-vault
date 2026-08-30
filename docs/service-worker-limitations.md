@@ -20,7 +20,7 @@ A site with an active Service Worker may therefore serve authenticated content f
 2. **STRICT** — block new `navigator.serviceWorker.register` where the page runtime can wrap it.
 3. **CLEAN** — unregister origin SW / clear origin caches. **Requires explicit confirmation** — affects the entire origin, all sessions.
 
-SessionVault never silently unregisters a Service Worker.
+Session Vault never silently unregisters a Service Worker.
 
 ## Testing guidance
 
@@ -34,4 +34,4 @@ Compatibility scanner surfaces **LIMITED** when SW or SharedWorker is detected.
 
 ## Residual risk
 
-Service Worker scope is **origin-wide**. SessionVault documents this as accepted residual risk in [threat-model.md](./threat-model.md).
+Service Worker scope is **origin-wide**. Session Vault documents this as accepted residual risk in [threat-model.md](./threat-model.md).

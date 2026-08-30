@@ -65,5 +65,5 @@ const server = http.createServer(async (request, response) => {
 });
 
 server.listen(port, host, () => {
-  console.log(`SessionVault test-site listening on http://${host}:${port}`);
+  console.log(`Session Vault test-site listening on http://${host}:${port}`);
 });

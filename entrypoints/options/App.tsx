@@ -130,7 +130,7 @@ function SettingsPane() {
       <header className="space-y-2">
         <h1 className="text-xl font-semibold">Settings</h1>
         <p className="text-muted-foreground text-sm">
-          SessionVault stays on this device. Sessions and cookies are never uploaded.
+          Session Vault stays on this device. Sessions and cookies are never uploaded.
         </p>
       </header>
 
@@ -211,7 +211,7 @@ function ManagerApp() {
             <ShieldCheckIcon className="size-4" />
           </span>
           <div className="min-w-0">
-            <p className="text-sm font-semibold">SessionVault</p>
+            <p className="text-sm font-semibold">Session Vault</p>
             <p className="text-muted-foreground text-[11px]">Isolated logins</p>
           </div>
         </div>
@@ -346,7 +346,7 @@ function ManagerApp() {
                   <EmptyState
                     icon={<GlobeIcon className="size-8" />}
                     title="No sessions yet"
-                    description="Open a website, click the SessionVault icon, and create a session for each account you want to keep separate."
+                    description="Open a website, click the Session Vault icon, and create a session for each account you want to keep separate."
                   />
                 ) : manager.selectedSiteId === 'all' ? (
                   manager.sites.length === 0 && manager.unassigned.length === 0 ? (
@@ -430,7 +430,7 @@ function ManagerApp() {
       <SessionNameDialog
         open={renameId !== null}
         title="Rename session"
-        description="This name is only shown in SessionVault."
+        description="This name is only shown in Session Vault."
         confirmLabel="Save"
         initialName={
           renameTarget !== undefined ? stripSessionMarker(renameTarget.session.name) : ''

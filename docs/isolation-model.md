@@ -1,6 +1,6 @@
 # Isolation Model
 
-SessionVault provides **strong practical application-session isolation** inside a single Chrome profile. It is **not** a separate browser profile.
+Session Vault provides **strong practical application-session isolation** inside a single Chrome profile. It is **not** a separate browser profile.
 
 ## What is isolated in V1 (virtual provider)
 
@@ -78,7 +78,7 @@ Migration is transactional. Failure restores a safe (fail-closed) state. Partial
 
 ## Tab inheritance
 
-When SessionVault creates a tab:
+When Session Vault creates a tab:
 
 1. Create `about:blank`
 2. Bind session + install DNR

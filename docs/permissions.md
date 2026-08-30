@@ -1,6 +1,6 @@
 # Permissions
 
-SessionVault requests the minimum capabilities needed to isolate site sessions. Host access is **optional** and requested when the user enables isolation for a site.
+Session Vault requests the minimum capabilities needed to isolate site sessions. Host access is **optional** and requested when the user enables isolation for a site.
 
 | Permission                            | Why                                                                                                                                                        |
 | ------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------- |

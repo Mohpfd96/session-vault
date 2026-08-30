@@ -1,6 +1,6 @@
 # Threat Model
 
-Scope: a single Chrome profile with SessionVault installed. Attacker goals: read or apply another session’s credentials, or cause fail-open native cookie use.
+Scope: a single Chrome profile with Session Vault installed. Attacker goals: read or apply another session’s credentials, or cause fail-open native cookie use.
 
 Likelihood / impact: **L** low, **M** medium, **H** high, **C** critical.
 

@@ -1,5 +1,5 @@
 {
-  "name": "sessionvault",
+  "name": "session-vault",
   "description": "Manage isolated website sessions and accounts in Chrome.",
   "private": true,
   "version": "0.1.0",

@@ -27,7 +27,7 @@ async function ensureHostAccess(origin: string): Promise<string | null> {
   }
   const granted = await requestHostAccess(origin);
   if (!granted) {
-    return 'Allow SessionVault to access this site when Chrome prompts, then retry.';
+    return 'Allow Session Vault to access this site when Chrome prompts, then retry.';
   }
   return null;
 }

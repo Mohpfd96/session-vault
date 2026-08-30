@@ -122,7 +122,7 @@ export async function setToolbarIcon(
     await applyIcon(tabId, variant);
     await browser.action.setTitle({
       tabId,
-      title: variant === 'active' ? 'SessionVault · Isolated session' : 'SessionVault',
+      title: variant === 'active' ? 'Session Vault · Isolated session' : 'Session Vault',
     });
   } catch (error) {
     logger.warn('Failed to set toolbar icon', {

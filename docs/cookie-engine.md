@@ -1,6 +1,6 @@
 # Cookie Engine
 
-Pure TypeScript implementation of browser-ish cookie behavior for SessionVault virtual jars. No Chrome APIs.
+Pure TypeScript implementation of browser-ish cookie behavior for Session Vault virtual jars. No Chrome APIs.
 
 See also: [architecture.md](./architecture.md), [data-schema.md](./data-schema.md), [storage-virtualization.md](./storage-virtualization.md).
 

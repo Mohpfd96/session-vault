@@ -9,8 +9,8 @@ export default defineConfig({
     plugins: [tailwindcss()],
   }),
   manifest: {
-    name: 'SessionVault',
-    short_name: 'SessionVault',
+    name: 'Session Vault',
+    short_name: 'Session Vault',
     description:
       'Manage isolated website sessions and accounts. Keep personal, work, and client logins separate in different tabs.',
     minimum_chrome_version: '120',

@@ -117,7 +117,7 @@ function PopupApp() {
           ) : !siteReady ? (
             <EmptyState
               title="No website tab"
-              description="Click a site like google.com, then open SessionVault to create isolated logins."
+              description="Click a site like google.com, then open Session Vault to create isolated logins."
             />
           ) : popup.sessions.length === 0 ? (
             <EmptyState
@@ -188,7 +188,7 @@ function PopupApp() {
       <SessionNameDialog
         open={renameId !== null}
         title="Rename session"
-        description="This name is only shown in SessionVault."
+        description="This name is only shown in Session Vault."
         confirmLabel="Save"
         initialName={
           renameTarget !== undefined ? stripSessionMarker(renameTarget.session.name) : ''

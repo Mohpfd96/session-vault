@@ -1,6 +1,6 @@
 # Release Checklist
 
-Pre-ship verification for SessionVault extension builds.
+Pre-ship verification for Session Vault extension builds.
 
 See also: [testing.md](./testing.md), [threat-model.md](./threat-model.md), [privacy.md](./privacy.md).
 

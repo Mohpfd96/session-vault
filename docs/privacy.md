@@ -1,6 +1,6 @@
 # Privacy
 
-SessionVault is local-first. No telemetry, no cloud accounts, no remote fonts in V1.
+Session Vault is local-first. No telemetry, no cloud accounts, no remote fonts in V1.
 
 See also: [threat-model.md](./threat-model.md), [import-export.md](./import-export.md), [data-schema.md](./data-schema.md).
 

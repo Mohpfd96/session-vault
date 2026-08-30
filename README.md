@@ -1,4 +1,4 @@
-# SessionVault
+# Session Vault
 
 Manage multiple isolated website sessions in Chrome — personal, work, client, and temporary — without leaking logins between tabs.
 

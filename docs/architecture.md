@@ -1,8 +1,8 @@
-# SessionVault Architecture
+# Session Vault Architecture
 
-SessionVault is a Chrome Manifest V3 extension that provides **practical application-session isolation**: multiple simultaneous logins to the same site in different tabs.
+Session Vault is a Chrome Manifest V3 extension that provides **practical application-session isolation**: multiple simultaneous logins to the same site in different tabs.
 
-Chrome does not expose Firefox-style per-tab cookie stores. SessionVault therefore does **not** swap Chrome’s shared cookie jar. It implements a **virtual session isolation layer** and fails closed when isolation cannot be proven.
+Chrome does not expose Firefox-style per-tab cookie stores. Session Vault therefore does **not** swap Chrome’s shared cookie jar. It implements a **virtual session isolation layer** and fails closed when isolation cannot be proven.
 
 This is **not** equivalent to separate Chrome profiles. See [isolation-model.md](./isolation-model.md) and [threat-model.md](./threat-model.md).
 
@@ -228,7 +228,7 @@ On every background init:
 
 ## UI surfaces (Session Buddy–inspired)
 
-Session Buddy is a tab _collection_ manager. SessionVault is a _login isolation_ manager. We borrow the UX grammar, not the product:
+Session Buddy is a tab _collection_ manager. Session Vault is a _login isolation_ manager. We borrow the UX grammar, not the product:
 
 - Instant search over sessions, domains, and tags.
 - Pinned items first, then active, then the rest.

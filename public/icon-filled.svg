@@ -1,4 +1,4 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 128 128" role="img" aria-label="SessionVault">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 128 128" role="img" aria-label="Session Vault">
   <rect width="128" height="128" rx="24" fill="#0f766e"/>
   <path d="M36 44h56v12H56v40H44V56H36V44z" fill="#ecfeff"/>
   <circle cx="88" cy="88" r="14" fill="#5eead4"/>

@@ -155,7 +155,7 @@ export async function decryptBackup(
       'DecryptionFailed',
       'Unsupported encrypted backup format.',
       true,
-      'Import a SessionVault encrypted backup.',
+      'Import a Session Vault encrypted backup.',
     );
   }
 

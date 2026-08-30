@@ -95,7 +95,7 @@ export async function parseHttpTab(tabId: number): Promise<{
       'TabNotBound',
       'No website tab is focused.',
       true,
-      'Click a tab like google.com, then open SessionVault again.',
+      'Click a tab like google.com, then open Session Vault again.',
     );
   }
 
@@ -141,7 +141,7 @@ export async function ensureManagedSite(tabId: number): Promise<ManagedSite> {
     const granted = await requestOriginPermission(origin);
     if (!granted) {
       throw permissionDenied(
-        `Allow SessionVault to access ${origin} when Chrome prompts, then create the session again.`,
+        `Allow Session Vault to access ${origin} when Chrome prompts, then create the session again.`,
       );
     }
   }
