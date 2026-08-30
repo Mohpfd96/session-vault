@@ -1,0 +1,12 @@
+@import '@/assets/styles.css';
+
+html,
+body,
+#root {
+  width: 360px;
+  min-height: 560px;
+}
+
+body {
+  overflow-x: hidden;
+}

@@ -1,0 +1,47 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>SessionVault Lab</title>
+    <link rel="stylesheet" href="/styles.css" />
+  </head>
+  <body>
+    <main>
+      <h1>SessionVault isolation lab</h1>
+      <p>
+        Local-only test origin for Phase 2 Alice/Bob E2E. Not shipped with the extension.
+      </p>
+
+      <section>
+        <h2>Cookies</h2>
+        <button id="set-http-cookie" type="button">Set HTTP cookie (fetch)</button>
+        <button id="set-document-cookie" type="button">Set document.cookie</button>
+        <button id="read-cookies" type="button">Read document.cookie</button>
+        <pre id="cookie-output"></pre>
+      </section>
+
+      <section>
+        <h2>Storage</h2>
+        <button id="write-local" type="button">Write localStorage</button>
+        <button id="read-local" type="button">Read localStorage</button>
+        <button id="write-idb" type="button">Write IndexedDB</button>
+        <button id="read-idb" type="button">Read IndexedDB</button>
+        <button id="write-cache" type="button">Write Cache Storage</button>
+        <pre id="storage-output"></pre>
+      </section>
+
+      <section>
+        <h2>Broadcast</h2>
+        <button id="broadcast" type="button">Post BroadcastChannel ping</button>
+        <pre id="broadcast-output"></pre>
+      </section>
+
+      <section>
+        <h2>Redirects</h2>
+        <a href="/redirect?target=/landing">Redirect with Set-Cookie</a>
+      </section>
+    </main>
+    <script type="module" src="/app.js"></script>
+  </body>
+</html>

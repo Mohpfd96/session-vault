@@ -1,0 +1,23 @@
+body {
+  font-family: system-ui, sans-serif;
+  margin: 2rem;
+  line-height: 1.5;
+}
+
+section {
+  margin-bottom: 2rem;
+  padding: 1rem;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+}
+
+pre {
+  background: #f6f8fa;
+  padding: 0.75rem;
+  overflow: auto;
+}
+
+button,
+a {
+  margin-right: 0.5rem;
+}

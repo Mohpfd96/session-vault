@@ -1,0 +1,6 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 128 128" role="img" aria-label="SessionVault">
+  <rect width="128" height="128" rx="24" fill="#0f766e"/>
+  <path d="M36 44h56v12H56v40H44V56H36V44z" fill="#ecfeff"/>
+  <circle cx="88" cy="88" r="14" fill="#5eead4"/>
+  <path d="M82 88h12M88 82v12" stroke="#0f766e" stroke-width="3" stroke-linecap="round"/>
+</svg>
