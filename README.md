@@ -184,21 +184,21 @@ Legend: **Done** · **Partial** · **Not started**
 
 The extension builds, lints, and unit-tests. Domain models, persistence, messaging, popup, side panel, and options exist.
 
-| Item                                              | State |
-| ------------------------------------------------- | ----- |
-| WXT + Chrome Manifest V3                          | Done  |
+| Item                                                        | State |
+| ----------------------------------------------------------- | ----- |
+| WXT + Chrome Manifest V3                                    | Done  |
 | TypeScript (strict, including `exactOptionalPropertyTypes`) | Done  |
-| ESLint + Prettier                                 | Done  |
-| Vitest unit tests + GitHub Actions CI             | Done  |
-| Session domain model, lifecycle, branded IDs      | Done  |
-| Schema v1, migrations, recovery lock              | Done  |
-| Typed messaging (UI / content / page) + Zod       | Done  |
-| Chrome API adapters                               | Done  |
-| Popup (current site, sessions, create / temp)     | Done  |
-| Side panel (list, detail, domain detail, filters) | Done  |
-| Options / settings (theme, privacy copy)          | Done  |
-| IsolationProvider abstraction                     | Done  |
-| Playwright harness (smoke only)                   | Done  |
+| ESLint + Prettier                                           | Done  |
+| Vitest unit tests + GitHub Actions CI                       | Done  |
+| Session domain model, lifecycle, branded IDs                | Done  |
+| Schema v1, migrations, recovery lock                        | Done  |
+| Typed messaging (UI / content / page) + Zod                 | Done  |
+| Chrome API adapters                                         | Done  |
+| Popup (current site, sessions, create / temp)               | Done  |
+| Side panel (list, detail, domain detail, filters)           | Done  |
+| Options / settings (theme, privacy copy)                    | Done  |
+| IsolationProvider abstraction                               | Done  |
+| Playwright harness (smoke only)                             | Done  |
 
 ### Phase 2 — Cookie isolation
 
@@ -206,21 +206,21 @@ The extension builds, lints, and unit-tests. Domain models, persistence, messagi
 
 Cookie isolation is **not** complete until the simultaneous same-origin Alice/Bob E2E test passes in Chromium.
 
-| Item                                                         | State       |
-| ------------------------------------------------------------ | ----------- |
-| Managed domains + host permission request                    | Done        |
-| Virtual cookie engine (parse, match, jar, header)            | Done        |
-| Native cookie import into Default session                    | Done        |
-| DNR compiler (priorities, path rules, fail-closed strip)     | Done        |
-| RuleBudgetManager (degrade + strip, never native fallback)   | Done        |
-| Tab binding + `chrome.storage.session` recovery              | Done        |
-| `webRequest` Set-Cookie ingest → jar → targeted rebuild      | Done        |
-| MAIN-world `document.cookie` getter/setter                   | Done        |
-| Safe `about:blank` then bind then navigate                   | Done        |
-| Cookie / DNR / ingest / native-import unit tests             | Done        |
-| Alice/Bob same-origin dual-session Playwright test           | Not started |
-| HttpOnly / Path / redirect / parent-domain Chromium proofs   | Not started |
-| Service-worker kill + reload isolation proof                 | Not started |
+| Item                                                       | State       |
+| ---------------------------------------------------------- | ----------- |
+| Managed domains + host permission request                  | Done        |
+| Virtual cookie engine (parse, match, jar, header)          | Done        |
+| Native cookie import into Default session                  | Done        |
+| DNR compiler (priorities, path rules, fail-closed strip)   | Done        |
+| RuleBudgetManager (degrade + strip, never native fallback) | Done        |
+| Tab binding + `chrome.storage.session` recovery            | Done        |
+| `webRequest` Set-Cookie ingest → jar → targeted rebuild    | Done        |
+| MAIN-world `document.cookie` getter/setter                 | Done        |
+| Safe `about:blank` then bind then navigate                 | Done        |
+| Cookie / DNR / ingest / native-import unit tests           | Done        |
+| Alice/Bob same-origin dual-session Playwright test         | Not started |
+| HttpOnly / Path / redirect / parent-domain Chromium proofs | Not started |
+| Service-worker kill + reload isolation proof               | Not started |
 
 ### Phase 3 — Web storage
 
@@ -228,15 +228,15 @@ Cookie isolation is **not** complete until the simultaneous same-origin Alice/Bo
 
 The messaging protocol reserves `content.storageOp`. The background router rejects it. The page runtime does not wrap storage APIs. IndexedDB has a `webStorage` object store that is unused.
 
-| Item                                      | State       |
-| ----------------------------------------- | ----------- |
-| `localStorage` namespace per session      | Not started |
-| IndexedDB database-name virtualization    | Not started |
-| Cache Storage name virtualization         | Not started |
-| `BroadcastChannel` name virtualization    | Not started |
-| Web Locks name virtualization             | Not started |
-| Prefix-probe rejection                    | Not started |
-| Storage unit + lab tests                  | Not started |
+| Item                                   | State       |
+| -------------------------------------- | ----------- |
+| `localStorage` namespace per session   | Not started |
+| IndexedDB database-name virtualization | Not started |
+| Cache Storage name virtualization      | Not started |
+| `BroadcastChannel` name virtualization | Not started |
+| Web Locks name virtualization          | Not started |
+| Prefix-probe rejection                 | Not started |
+| Storage unit + lab tests               | Not started |
 
 `sessionStorage` is correctly **not** namespaced (tab-scoped browser default). That is intentional, not missing work.
 
@@ -244,19 +244,19 @@ The messaging protocol reserves `content.storageOp`. The background router rejec
 
 **Status: Partial**
 
-| Item                                                    | State       |
-| ------------------------------------------------------- | ----------- |
-| Child-tab inheritance via `openerTabId`                 | Done        |
-| Safe create-tab (`about:blank` → bind → navigate)       | Done        |
-| Popup: switch / open / create / temporary / delete      | Done        |
-| Duplicate page into another session                     | Done        |
-| Move current tab to a session                           | Done        |
-| Keyboard commands (switcher, temp, next, previous, dup) | Done        |
-| Per-site domain groups (registrable domain + matcher)   | Done        |
-| Custom multi-host domain families (Google-style SSO)    | Not started |
-| Context menu: Open / move / duplicate in session        | Not started |
-| Chrome Tab Groups integration                           | Not started |
-| Automatic URL routing rules                             | Not started |
+| Item                                                    | State                     |
+| ------------------------------------------------------- | ------------------------- |
+| Child-tab inheritance via `openerTabId`                 | Done                      |
+| Safe create-tab (`about:blank` → bind → navigate)       | Done                      |
+| Popup: switch / open / create / temporary / delete      | Done                      |
+| Duplicate page into another session                     | Done                      |
+| Move current tab to a session                           | Done                      |
+| Keyboard commands (switcher, temp, next, previous, dup) | Done                      |
+| Per-site domain groups (registrable domain + matcher)   | Done                      |
+| Custom multi-host domain families (Google-style SSO)    | Not started               |
+| Context menu: Open / move / duplicate in session        | Not started               |
+| Chrome Tab Groups integration                           | Not started               |
+| Automatic URL routing rules                             | Not started               |
 | Side-panel session settings (inherit / tab groups)      | Partial (shown, disabled) |
 
 Context menu today: **Open side panel** on the toolbar icon only. There is no “Open link in Session” picker.
@@ -265,18 +265,18 @@ Context menu today: **Open side panel** on the toolbar icon only. There is no �
 
 **Status: Partial**
 
-| Item                                                         | State       |
-| ------------------------------------------------------------ | ----------- |
-| Temporary sessions with last-tab cleanup                     | Done        |
-| Delete session (unbind, drop jar, drop metadata)             | Done        |
-| Browser-restart: tab IDs discarded, unassigned + strip       | Done        |
-| MV3 worker init: restore bindings, drop stale, rebuild DNR   | Done        |
-| Archive / unarchive (domain transitions exist)               | Partial     |
-| Convert temporary → persistent                               | Not started |
-| Grace-period / browser-session temporary cleanup             | Not started |
-| Clone session (cookies / storage / tabs / metadata)          | Not started |
-| Selective clear (cookies, JS cookies, storage, site state)   | Not started |
-| Reset whole session without delete                           | Not started |
+| Item                                                       | State       |
+| ---------------------------------------------------------- | ----------- |
+| Temporary sessions with last-tab cleanup                   | Done        |
+| Delete session (unbind, drop jar, drop metadata)           | Done        |
+| Browser-restart: tab IDs discarded, unassigned + strip     | Done        |
+| MV3 worker init: restore bindings, drop stale, rebuild DNR | Done        |
+| Archive / unarchive (domain transitions exist)             | Partial     |
+| Convert temporary → persistent                             | Not started |
+| Grace-period / browser-session temporary cleanup           | Not started |
+| Clone session (cookies / storage / tabs / metadata)        | Not started |
+| Selective clear (cookies, JS cookies, storage, site state) | Not started |
+| Reset whole session without delete                         | Not started |
 
 Archive is modeled and filtered in the side panel. There is no archive action in the UI.
 
@@ -284,19 +284,19 @@ Archive is modeled and filtered in the side panel. There is no archive action in
 
 **Status: Partial**
 
-| Item                                                         | State       |
-| ------------------------------------------------------------ | ----------- |
-| Structured logger with secret-key redaction                  | Done        |
-| AES-GCM + PBKDF2 envelope (round-trip, wrong password, tamper) | Done      |
-| Message validation (no page-supplied `sessionId`)            | Done        |
-| Zod schemas for persisted records                            | Done        |
-| Versioned backup envelope (types / docs)                     | Partial     |
-| Import preview, collision policies, file I/O UI              | Not started |
-| Encrypted `.sessionvault` export/import in the product       | Not started |
-| Session Inspector / diagnostics                              | Not started |
-| Privacy-safe activity timeline                               | Not started |
-| Redacted diagnostic export                                   | Not started |
-| Masked cookie values in UI (Reveal / Copy)                   | Not started |
+| Item                                                           | State       |
+| -------------------------------------------------------------- | ----------- |
+| Structured logger with secret-key redaction                    | Done        |
+| AES-GCM + PBKDF2 envelope (round-trip, wrong password, tamper) | Done        |
+| Message validation (no page-supplied `sessionId`)              | Done        |
+| Zod schemas for persisted records                              | Done        |
+| Versioned backup envelope (types / docs)                       | Partial     |
+| Import preview, collision policies, file I/O UI                | Not started |
+| Encrypted `.sessionvault` export/import in the product         | Not started |
+| Session Inspector / diagnostics                                | Not started |
+| Privacy-safe activity timeline                                 | Not started |
+| Redacted diagnostic export                                     | Not started |
+| Masked cookie values in UI (Reveal / Copy)                     | Not started |
 
 ### Phase 7 — Compatibility
 
@@ -304,32 +304,32 @@ Archive is modeled and filtered in the side panel. There is no archive action in
 
 `IsolationProvider.getCompatibility()` always returns `FULL` with no reasons. The side panel hard-codes a “full” line. Session `strictness` is stored but unused.
 
-| Item                                              | State       |
-| ------------------------------------------------- | ----------- |
-| Detect controlling / registered Service Worker    | Not started |
-| Detect SharedWorker                               | Not started |
-| Per-origin FULL / LIMITED / UNSUPPORTED scoring   | Not started |
-| STRICT mode (block `register`)                    | Not started |
-| CLEAN mode (user-confirmed origin wipe)           | Not started |
-| Surface real limitation strings in UI             | Not started |
+| Item                                            | State       |
+| ----------------------------------------------- | ----------- |
+| Detect controlling / registered Service Worker  | Not started |
+| Detect SharedWorker                             | Not started |
+| Per-origin FULL / LIMITED / UNSUPPORTED scoring | Not started |
+| STRICT mode (block `register`)                  | Not started |
+| CLEAN mode (user-confirmed origin wipe)         | Not started |
+| Surface real limitation strings in UI           | Not started |
 
 ### Phase 8 — Product polish
 
 **Status: Partial**
 
-| Item                                                         | State       |
-| ------------------------------------------------------------ | ----------- |
-| Light / dark / system theme                                  | Done        |
-| Landing site (`site/`) + GitHub Pages                        | Done        |
-| Architecture, threat, isolation, schema, privacy docs        | Done        |
-| Keyboard list hook (exists, not wired into session lists)    | Partial     |
-| Toolbar icon fill for bound tabs                             | Done        |
-| Session-colored badge text (P / W / …)                       | Not started |
-| WCAG pass (focus, contrast, reduced motion, SR status)       | Partial     |
-| Performance budgets / profiling                              | Not started |
-| Chrome Web Store listing, screenshots, privacy policy page   | Not started |
-| Playwright E2E in CI                                         | Not started |
-| Optional host permissions only (no install-time `*://*/*`)   | Not started |
+| Item                                                       | State       |
+| ---------------------------------------------------------- | ----------- |
+| Light / dark / system theme                                | Done        |
+| Landing site (`site/`) + GitHub Pages                      | Done        |
+| Architecture, threat, isolation, schema, privacy docs      | Done        |
+| Keyboard list hook (exists, not wired into session lists)  | Partial     |
+| Toolbar icon fill for bound tabs                           | Done        |
+| Session-colored badge text (P / W / …)                     | Not started |
+| WCAG pass (focus, contrast, reduced motion, SR status)     | Partial     |
+| Performance budgets / profiling                            | Not started |
+| Chrome Web Store listing, screenshots, privacy policy page | Not started |
+| Playwright E2E in CI                                       | Not started |
+| Optional host permissions only (no install-time `*://*/*`) | Not started |
 
 This build still declares `host_permissions: *://*/*` in the manifest. That is wider than the intended store strategy (request access when the user isolates a site). See [docs/permissions.md](docs/permissions.md).
 
@@ -337,28 +337,28 @@ This build still declares `host_permissions: *://*/*` in the manifest. That is w
 
 V1 is **not** complete until every row is Done.
 
-| #  | Criterion                                                                      | State       |
-| -- | ------------------------------------------------------------------------------ | ----------- |
-| 1  | Two tabs, same origin, different sessions, both open                           | Partial     |
-| 2  | Each can hold a different HttpOnly auth cookie                                 | Partial     |
-| 3  | Refreshing either tab never changes the other’s login                          | Not started |
-| 4  | JavaScript `document.cookie` isolated                                          | Done        |
-| 5  | `localStorage` isolated                                                        | Not started |
-| 6  | IndexedDB isolated for supported sites                                         | Not started |
-| 7  | Cache Storage isolated for supported sites                                     | Not started |
-| 8  | Same-session tabs share cookie jar                                             | Done        |
-| 9  | Child tabs inherit the correct session                                         | Done        |
-| 10 | Survives MV3 service-worker suspension                                         | Partial     |
-| 11 | Temporary sessions remove state safely                                         | Done        |
-| 12 | DNR exhaustion fails closed                                                    | Done        |
-| 13 | Untrusted page cannot request another session’s secrets                        | Done        |
-| 14 | Sensitive values redacted from logs                                            | Done        |
-| 15 | Imported data validated                                                        | Partial     |
-| 16 | Backups can be encrypted                                                       | Partial     |
-| 17 | Service Worker limitations surfaced, not hidden                                | Not started |
-| 18 | Required permissions documented                                                | Done        |
-| 19 | Real Chromium E2E isolation tests                                              | Not started |
-| 20 | Zero tolerated cross-session leakage on supported scenarios                    | Not started |
+| #   | Criterion                                                   | State       |
+| --- | ----------------------------------------------------------- | ----------- |
+| 1   | Two tabs, same origin, different sessions, both open        | Partial     |
+| 2   | Each can hold a different HttpOnly auth cookie              | Partial     |
+| 3   | Refreshing either tab never changes the other’s login       | Not started |
+| 4   | JavaScript `document.cookie` isolated                       | Done        |
+| 5   | `localStorage` isolated                                     | Not started |
+| 6   | IndexedDB isolated for supported sites                      | Not started |
+| 7   | Cache Storage isolated for supported sites                  | Not started |
+| 8   | Same-session tabs share cookie jar                          | Done        |
+| 9   | Child tabs inherit the correct session                      | Done        |
+| 10  | Survives MV3 service-worker suspension                      | Partial     |
+| 11  | Temporary sessions remove state safely                      | Done        |
+| 12  | DNR exhaustion fails closed                                 | Done        |
+| 13  | Untrusted page cannot request another session’s secrets     | Done        |
+| 14  | Sensitive values redacted from logs                         | Done        |
+| 15  | Imported data validated                                     | Partial     |
+| 16  | Backups can be encrypted                                    | Partial     |
+| 17  | Service Worker limitations surfaced, not hidden             | Not started |
+| 18  | Required permissions documented                             | Done        |
+| 19  | Real Chromium E2E isolation tests                           | Not started |
+| 20  | Zero tolerated cross-session leakage on supported scenarios | Not started |
 
 Rows 1–3 and 19–20 stay **Partial / Not started** until Alice/Bob runs against Chromium. Cookie engines and DNR compilation are unit-tested; that is not a substitute.
 
@@ -368,22 +368,22 @@ Fingerprint spoofing, canvas/WebGL spoofing, residential proxies, CAPTCHA bypass
 
 ## Docs
 
-|                                                |                                   |
-| ---------------------------------------------- | --------------------------------- |
-| [Architecture](docs/architecture.md)           | Layers, DNR, fail-closed recovery |
-| [Isolation model](docs/isolation-model.md)     | What is isolated vs what is not   |
-| [Cookie engine](docs/cookie-engine.md)         | Virtual jar behavior              |
-| [Storage virtualization](docs/storage-virtualization.md) | Page storage contract (not shipped) |
-| [Permissions](docs/permissions.md)             | Why each Chrome permission exists |
-| [Privacy](docs/privacy.md)                     | Local-first data map              |
-| [Threat model](docs/threat-model.md)           | Attacker goals and mitigations    |
-| [Import / export](docs/import-export.md)       | Backup envelopes                  |
-| [Compatibility](docs/compatibility.md)         | SW, SharedWorker, HTTP cache      |
-| [Service Worker limitations](docs/service-worker-limitations.md) | Why DNR cannot see SW responses |
-| [Data schema](docs/data-schema.md)             | Versioned records and stores      |
-| [Recovery](docs/recovery.md)                   | Worker kill, restart, budget      |
-| [Testing](docs/testing.md)                     | Unit and E2E strategy             |
-| [Release checklist](docs/release-checklist.md) | Pre-ship gates                    |
+|                                                                  |                                     |
+| ---------------------------------------------------------------- | ----------------------------------- |
+| [Architecture](docs/architecture.md)                             | Layers, DNR, fail-closed recovery   |
+| [Isolation model](docs/isolation-model.md)                       | What is isolated vs what is not     |
+| [Cookie engine](docs/cookie-engine.md)                           | Virtual jar behavior                |
+| [Storage virtualization](docs/storage-virtualization.md)         | Page storage contract (not shipped) |
+| [Permissions](docs/permissions.md)                               | Why each Chrome permission exists   |
+| [Privacy](docs/privacy.md)                                       | Local-first data map                |
+| [Threat model](docs/threat-model.md)                             | Attacker goals and mitigations      |
+| [Import / export](docs/import-export.md)                         | Backup envelopes                    |
+| [Compatibility](docs/compatibility.md)                           | SW, SharedWorker, HTTP cache        |
+| [Service Worker limitations](docs/service-worker-limitations.md) | Why DNR cannot see SW responses     |
+| [Data schema](docs/data-schema.md)                               | Versioned records and stores        |
+| [Recovery](docs/recovery.md)                                     | Worker kill, restart, budget        |
+| [Testing](docs/testing.md)                                       | Unit and E2E strategy               |
+| [Release checklist](docs/release-checklist.md)                   | Pre-ship gates                      |
 
 ## Website
 

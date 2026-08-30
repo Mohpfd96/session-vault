@@ -8,14 +8,14 @@ See also: [isolation-model.md](./isolation-model.md), [service-worker-limitation
 
 ## Target surfaces (V1)
 
-| API                               | Strategy                                             |
-| --------------------------------- | ---------------------------------------------------- |
-| `document.cookie`                 | MAIN-world getter/setter backed by virtual jar (live)|
-| `localStorage`                    | Keys stored under session namespace in extension IDB |
-| `indexedDB.open/delete/databases` | Database name prefix; app sees logical names         |
-| `caches.*`                        | Cache name prefix                                    |
-| `BroadcastChannel`                | Channel name prefix                                  |
-| `navigator.locks`                 | Lock name prefix (best-effort, feature-detected)     |
+| API                               | Strategy                                              |
+| --------------------------------- | ----------------------------------------------------- |
+| `document.cookie`                 | MAIN-world getter/setter backed by virtual jar (live) |
+| `localStorage`                    | Keys stored under session namespace in extension IDB  |
+| `indexedDB.open/delete/databases` | Database name prefix; app sees logical names          |
+| `caches.*`                        | Cache name prefix                                     |
+| `BroadcastChannel`                | Channel name prefix                                   |
+| `navigator.locks`                 | Lock name prefix (best-effort, feature-detected)      |
 
 Internal names (for example `__sv_<sessionId>__app`) must never be exposed to application JavaScript.
 

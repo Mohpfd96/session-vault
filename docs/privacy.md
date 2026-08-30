@@ -6,12 +6,12 @@ See also: [threat-model.md](./threat-model.md), [import-export.md](./import-expo
 
 ## Data stays on device
 
-| Data                          | Location                                              |
-| ----------------------------- | ----------------------------------------------------- |
-| Session metadata              | `chrome.storage.local`                                |
-| Tab bindings                  | `chrome.storage.session` (cleared on browser restart) |
-| Cookie jars                   | Extension IndexedDB                                   |
-| DNR session rules             | Chrome session rules (ephemeral)                      |
+| Data              | Location                                              |
+| ----------------- | ----------------------------------------------------- |
+| Session metadata  | `chrome.storage.local`                                |
+| Tab bindings      | `chrome.storage.session` (cleared on browser restart) |
+| Cookie jars       | Extension IndexedDB                                   |
+| DNR session rules | Chrome session rules (ephemeral)                      |
 
 Nothing is uploaded unless the user later exports a backup file from their own machine. There is no account, no sync service, and no analytics endpoint.
 

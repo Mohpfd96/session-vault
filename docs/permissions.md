@@ -6,20 +6,20 @@ Session Vault should request the minimum capabilities needed to isolate site ses
 
 ## Required (this build)
 
-| Permission                            | Why                                                                                                                                                        |
-| ------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `tabs`                                | Read the current website tab from the popup/side panel (those UIs have no `sender.tab`).                                                                   |
-| `activeTab`                           | Extra access to the tab that opened the popup so the current site can be shown immediately.                                                                |
-| `storage`                             | Settings, session metadata, domain groups, schema.                                                                                                         |
-| `scripting`                           | Inject the MAIN-world runtime and register content scripts for managed hosts.                                                                              |
+| Permission                            | Why                                                                                                                                                                                         |
+| ------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `tabs`                                | Read the current website tab from the popup/side panel (those UIs have no `sender.tab`).                                                                                                    |
+| `activeTab`                           | Extra access to the tab that opened the popup so the current site can be shown immediately.                                                                                                 |
+| `storage`                             | Settings, session metadata, domain groups, schema.                                                                                                                                          |
+| `scripting`                           | Inject the MAIN-world runtime and register content scripts for managed hosts.                                                                                                               |
 | `declarativeNetRequestWithHostAccess` | Enforce per-tab `Cookie` headers and strip native `Set-Cookie`. Chosen over `declarativeNetRequest` so a future listing can avoid an install-time DNR warning until host access is granted. |
-| `webRequest`                          | Observe `Set-Cookie` (`extraHeaders`). Non-blocking; DNR enforces.                                                                                         |
-| `webNavigation`                       | Session inheritance, redirects, safe `about:blank` navigation.                                                                                             |
-| `contextMenus`                        | Toolbar “Open side panel” today. Link/tab session menus are not shipped.                                                                                   |
-| `sidePanel`                           | Main management UI.                                                                                                                                        |
-| `alarms`                              | Temporary-session grace cleanup and recovery sweeps (grace cleanup not implemented yet).                                                                   |
-| `cookies`                             | One-time native cookie import into a Default session when a domain is first managed.                                                                       |
-| `unlimitedStorage`                    | Large cookie jars. Intended as **optional** for store listing.                                                                                             |
+| `webRequest`                          | Observe `Set-Cookie` (`extraHeaders`). Non-blocking; DNR enforces.                                                                                                                          |
+| `webNavigation`                       | Session inheritance, redirects, safe `about:blank` navigation.                                                                                                                              |
+| `contextMenus`                        | Toolbar “Open side panel” today. Link/tab session menus are not shipped.                                                                                                                    |
+| `sidePanel`                           | Main management UI.                                                                                                                                                                         |
+| `alarms`                              | Temporary-session grace cleanup and recovery sweeps (grace cleanup not implemented yet).                                                                                                    |
+| `cookies`                             | One-time native cookie import into a Default session when a domain is first managed.                                                                                                        |
+| `unlimitedStorage`                    | Large cookie jars. Intended as **optional** for store listing.                                                                                                                              |
 
 ## Optional (declared)
 
@@ -30,11 +30,11 @@ Session Vault should request the minimum capabilities needed to isolate site ses
 
 ## Host access
 
-| Mode                         | Status |
-| ---------------------------- | ------ |
-| Install-time `*://*/*`       | Current build |
-| Per-origin request on enable | Also implemented; target store model |
-| User opt-in “allow all sites”| Not shipped |
+| Mode                          | Status                               |
+| ----------------------------- | ------------------------------------ |
+| Install-time `*://*/*`        | Current build                        |
+| Per-origin request on enable  | Also implemented; target store model |
+| User opt-in “allow all sites” | Not shipped                          |
 
 ## Not requested
 

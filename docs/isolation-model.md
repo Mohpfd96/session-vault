@@ -8,17 +8,17 @@ This document is the isolation contract. The [README status](../README.md#status
 
 When a tab is bound to a session on a managed domain group, the following are isolated **between sessions** (and shared **within** a session):
 
-| Surface                        | Mechanism                          | Status in 0.1.0                                  |
-| ------------------------------ | ---------------------------------- | ------------------------------------------------ |
-| HTTP `Cookie` request header   | DNR `SET` from virtual jar         | Enforced when rules are installed before request |
-| Native `Set-Cookie` absorption | DNR `REMOVE` response `Set-Cookie` | Enforced for network responses DNR can see       |
-| `document.cookie`              | MAIN-world getter/setter           | Enforced; HttpOnly excluded                      |
-| `localStorage`                 | per `(sessionId, origin)` namespace| **Not virtualized**                              |
-| IndexedDB                      | database-name prefix               | **Not virtualized**                              |
-| Cache Storage                  | cache-name prefix                  | **Not virtualized**                              |
-| `BroadcastChannel`             | channel-name prefix                | **Not virtualized**                              |
-| Web Locks                      | lock-name prefix                   | **Not virtualized**                              |
-| `sessionStorage`               | **not** namespaced                 | Standard per-tab semantics (intentional)         |
+| Surface                        | Mechanism                           | Status in 0.1.0                                  |
+| ------------------------------ | ----------------------------------- | ------------------------------------------------ |
+| HTTP `Cookie` request header   | DNR `SET` from virtual jar          | Enforced when rules are installed before request |
+| Native `Set-Cookie` absorption | DNR `REMOVE` response `Set-Cookie`  | Enforced for network responses DNR can see       |
+| `document.cookie`              | MAIN-world getter/setter            | Enforced; HttpOnly excluded                      |
+| `localStorage`                 | per `(sessionId, origin)` namespace | **Not virtualized**                              |
+| IndexedDB                      | database-name prefix                | **Not virtualized**                              |
+| Cache Storage                  | cache-name prefix                   | **Not virtualized**                              |
+| `BroadcastChannel`             | channel-name prefix                 | **Not virtualized**                              |
+| Web Locks                      | lock-name prefix                    | **Not virtualized**                              |
+| `sessionStorage`               | **not** namespaced                  | Standard per-tab semantics (intentional)         |
 
 Same-session tabs intentionally share the cookie jar. The boundary is **between sessions**, not between every tab.
 
