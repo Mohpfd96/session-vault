@@ -2,6 +2,8 @@
 
 Session Vault reports how completely isolation can be enforced for an origin. Levels are factual, never vague.
 
+**Status: specified, not shipped.** `IsolationProvider.getCompatibility()` currently returns `{ level: 'full', reasons: [] }` for every origin. The side panel hard-codes a FULL-looking line. That is a product defect relative to this document: the UI must not present an unmeasured FULL score. Until a scanner exists, treat compatibility as **unknown**, not FULL.
+
 See also: [isolation-model.md](./isolation-model.md), [service-worker-limitations.md](./service-worker-limitations.md).
 
 ## Levels
@@ -19,23 +21,26 @@ See also: [isolation-model.md](./isolation-model.md), [service-worker-limitation
 - **DNR rule budget** exhausted → fail-closed strip only
 - Host permission revoked while domain still marked managed
 
+Example of an acceptable UI string: “Service Worker controlling this origin”. Unacceptable: “may not work”.
+
 ## What we never claim
 
 - HTTP cache isolation
 - TLS client certificates / FedCM / enterprise SSO
 - Fingerprint or IP isolation
 - Complete SharedWorker message isolation without proven wrapping
+- Perfect Service Worker isolation
 
-## Scanner integration
+## Scanner (not implemented)
 
-`modules/compatibility` (Phase 3+) aggregates signals from navigation, page runtime heartbeats, and worker detection. UI shows specific strings (“Service Worker controlling this origin”), not “may not work.”
+A future `modules/compatibility` package should aggregate signals from navigation, page runtime heartbeats, and worker detection.
 
 ## test-site
 
-Local lab at `test-site/` exercises cookies, storage, broadcast, and redirects for manual and future E2E checks. Start with:
+Local lab at `test-site/` exposes cookies, storage, broadcast, and redirects for manual checks and future E2E. Start with:
 
 ```bash
 node test-site/server.mjs
 ```
 
-Default origin: `http://127.0.0.1:4173`.
+Default origin: `http://127.0.0.1:4173`. The lab is not packaged into the extension.

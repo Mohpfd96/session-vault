@@ -2,7 +2,9 @@
 
 Pure TypeScript implementation of browser-ish cookie behavior for Session Vault virtual jars. No Chrome APIs.
 
-See also: [architecture.md](./architecture.md), [data-schema.md](./data-schema.md), [storage-virtualization.md](./storage-virtualization.md).
+This engine **is implemented** and unit-tested under `tests/unit/cookies/`. Network enforcement uses the DNR compiler; see [architecture.md](./architecture.md). Chromium Alice/Bob proofs are still outstanding; see [testing.md](./testing.md).
+
+See also: [data-schema.md](./data-schema.md), [storage-virtualization.md](./storage-virtualization.md).
 
 ## Modules
 
@@ -14,6 +16,8 @@ See also: [architecture.md](./architecture.md), [data-schema.md](./data-schema.m
 | `matcher.ts`          | Expiry, Secure, domain, path filtering for requests |
 | `header.ts`           | `Cookie` header and `document.cookie` serialization |
 | `jar.ts`              | Overwrite, deletion, apply parsed headers           |
+| `ingest.ts`           | Apply one or more `Set-Cookie` lines to a jar       |
+| `native-import.ts`    | Map `chrome.cookies` records into virtual cookies   |
 
 ## `parseSetCookie(header, requestUrl, now)`
 
@@ -53,4 +57,4 @@ Same matching and sort as `cookieHeader`, but **excludes HttpOnly** cookies (pag
 
 ## Testing
 
-Unit tests in `tests/unit/cookies/` cover parser, path, domain, Secure, HttpOnly, deletion, overwrite, and header ordering.
+Unit tests in `tests/unit/cookies/` cover parser, path, domain, Secure, HttpOnly, deletion, overwrite, ingest, native import, and header ordering.

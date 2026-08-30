@@ -4,6 +4,8 @@ Procedures when Chrome restarts, the service worker dies, or isolation state is 
 
 See also: [architecture.md](./architecture.md), [isolation-model.md](./isolation-model.md), [threat-model.md](./threat-model.md).
 
+Background init in `entrypoints/background/index.ts` implements this path: load schema, restore bindings, reconcile open tabs, drop unknown DNR session rules, clean unused temporary sessions. Init is fail-closed on error. Chromium proofs of worker kill and browser restart are not automated yet.
+
 ## Service worker restart
 
 MV3 workers are ephemeral. On every background init:
@@ -24,11 +26,11 @@ Policy:
 
 - Restored tabs on managed domains start **unassigned**.
 - DNR emits **fail-closed strip** (`REMOVE` request `Cookie`) until the user picks a session.
-- URL-only session guessing is **disabled** by default.
+- URL-only session guessing is **disabled**.
 
 ## Degraded / corrupted session
 
-States `degraded`, `corrupted`, `locked`, `migrating` trigger fail-closed strip. UI explains remediation (retry rebuild, restore backup, re-bind tab).
+States `degraded`, `corrupted`, `locked`, `migrating` trigger fail-closed strip. UI should explain remediation (retry rebuild, restore backup, re-bind tab). Backup restore is not shipped.
 
 ## DNR budget exhaustion
 
@@ -37,6 +39,9 @@ When projected session rules exceed `MAX_UNSAFE_SESSION_RULES` (5000):
 - Mark affected tabs **degraded**.
 - Compile **fail-closed strip only**.
 - Never fall back to native cookies.
+- User-visible copy: “Isolation paused because the browser rule limit was reached.”
+
+Unit tests cover budget projection. There is no E2E capacity-failure test.
 
 ## Migration failure
 
@@ -46,9 +51,11 @@ If schema migration aborts:
 - Prefer rollback to last good `schemaVersion`.
 - Copy snapshots before destructive migrations when size allows.
 
+Interrupted upgrades resume via `sv.migrationLock`.
+
 ## User playbook
 
-1. Reload extension if isolation chip shows uncertain.
-2. Re-assign session on each restored tab.
-3. If corruption persists, import encrypted backup from [import-export.md](./import-export.md).
+1. Reload the extension if the isolation chip shows uncertain or degraded.
+2. Re-assign a session on each restored tab after a Chrome restart.
+3. If corruption persists, wait for encrypted backup import (not shipped) or delete the affected session.
 4. For rule-limit warnings, close unused isolated tabs or reduce path-specific cookies.

@@ -4,21 +4,23 @@ All persisted records are versioned. Imported data is validated with Zod. Never 
 
 Current schema version: **1**.
 
+Stores listed as “reserved” exist in the schema and IndexedDB upgrade path so later versions do not require a user data wipe. They are not written by the current product UI.
+
 ## Storage placement
 
-| Record                      | Store                    | Key                |
-| --------------------------- | ------------------------ | ------------------ |
-| `SchemaMeta`                | `chrome.storage.local`   | `sv.schema`        |
-| `ExtensionSettings`         | `chrome.storage.local`   | `sv.settings`      |
-| `SessionProfile` list/index | `chrome.storage.local`   | `sv.sessions`      |
-| `DomainGroup`               | `chrome.storage.local`   | `sv.domainGroups`  |
-| `RoutingRule`               | `chrome.storage.local`   | `sv.routing`       |
-| `TabBinding`                | `chrome.storage.session` | `sv.bindings`      |
-| Runtime recovery            | `chrome.storage.session` | `sv.runtime`       |
-| Virtual cookies             | IndexedDB `sessionvault` | store `cookies`    |
-| Virtual web storage         | IndexedDB                | store `webStorage` |
-| Diagnostics events          | IndexedDB                | store `events`     |
-| Snapshots                   | IndexedDB                | store `snapshots`  |
+| Record                      | Store                    | Key                | Written today |
+| --------------------------- | ------------------------ | ------------------ | ------------- |
+| `SchemaMeta`                | `chrome.storage.local`   | `sv.schema`        | yes           |
+| `ExtensionSettings`         | `chrome.storage.local`   | `sv.settings`      | yes           |
+| `SessionProfile` list/index | `chrome.storage.local`   | `sv.sessions`      | yes           |
+| `DomainGroup`               | `chrome.storage.local`   | `sv.domainGroups`  | yes           |
+| `RoutingRule`               | `chrome.storage.local`   | `sv.routing`       | empty index   |
+| `TabBinding`                | `chrome.storage.session` | `sv.bindings`      | yes           |
+| Runtime recovery            | `chrome.storage.session` | `sv.runtime`       | yes           |
+| Virtual cookies             | IndexedDB `sessionvault` | store `cookies`    | yes           |
+| Virtual web storage         | IndexedDB                | store `webStorage` | reserved      |
+| Diagnostics events          | IndexedDB                | store `events`     | reserved      |
+| Snapshots                   | IndexedDB                | store `snapshots`  | reserved      |
 
 ## SchemaMeta
 
@@ -84,6 +86,8 @@ type SessionState =
 }
 ```
 
+`inheritToChildTabs` is enforced. `tabGroupIntegration`, `cloneSessionStorageOnDuplicate`, and non-`last-tab` cleanup policies are stored but not implemented.
+
 ## DomainGroup
 
 ```ts
@@ -105,6 +109,8 @@ type DomainEntry =
 ```
 
 Hosts are parsed with **tldts** (Public Suffix List). Naive suffix string splits are forbidden.
+
+Today the product creates one managed group per registrable domain when isolation is enabled. Custom multi-host families (for example Google Workspace) are schema-ready and have no editor yet.
 
 ## VirtualCookie
 
@@ -162,6 +168,8 @@ After restart, all bindings are gone with `chrome.storage.session`. They are **n
 }
 ```
 
+The routing index is initialized empty. No matcher or UI exists yet.
+
 ## IndexedDB database `sessionvault`
 
 Version 1 object stores:
@@ -178,6 +186,8 @@ Version 1 object stores:
 
 ## Backup envelope (unencrypted JSON)
 
+Specified. Product import/export is not shipped.
+
 ```ts
 {
   format: 'sessionvault-backup';
@@ -189,6 +199,8 @@ Version 1 object stores:
 ```
 
 ## Encrypted backup (`.sessionvault`)
+
+Primitives are implemented in `modules/security/encryption.ts`. There is no file picker or side-panel export yet.
 
 ```ts
 {
@@ -214,6 +226,8 @@ Passphrase is never persisted. AES-GCM provides authentication (wrong password /
 - If older: run chain, then write `SchemaMeta`.
 - Dangerous migrations copy `snapshots` first when size allows.
 
+Interrupted upgrades resume via `sv.migrationLock`. Tests cover init, resume, and unknown future versions.
+
 ## Import collision policies
 
-`merge` | `replace` | `duplicate` — chosen in the import preview UI. Never implicit overwrite of existing session IDs on `merge`.
+`merge` | `replace` | `duplicate` — chosen in the import preview UI (not shipped). Never implicit overwrite of existing session IDs on `merge`.

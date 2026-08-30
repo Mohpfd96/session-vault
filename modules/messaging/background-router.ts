@@ -642,7 +642,7 @@ export function createBackgroundRouter(ctx: RouterContext) {
           return {
             ok: false,
             code: 'ValidationFailed',
-            message: 'Storage virtualization is not implemented in Phase 1.',
+            message: 'Storage virtualization is not implemented.',
             isolationSafe: true,
           };
         default: {

@@ -1,22 +1,28 @@
 # Testing Strategy
 
-Isolation is proven by tests, not by comments. Unit tests cover pure engines. Playwright + unpacked Chrome covers DNR and real Chromium behavior.
+Isolation is proven by tests, not by comments. Unit tests cover pure engines. Playwright + unpacked Chrome must cover DNR and real Chromium behavior before V1.
 
 ## Tooling
 
-- **Vitest** — unit tests (`tests/unit/**/*.test.ts`), jsdom where DOM APIs matter.
-- **Playwright** — extension E2E (`tests/e2e/**/*.spec.ts`) loading `.output/chrome-mv3`.
-- **test-site** — local Node/static lab (not packaged into the store build).
+- **Vitest** — unit tests (`tests/unit/**/*.test.ts`), jsdom where DOM APIs matter. Run in CI.
+- **Playwright** — extension E2E (`tests/e2e/**/*.spec.ts`) loading `.output/chrome-mv3`. **Not in CI.** Current suite is a load smoke test that skips when the build output is missing.
+- **test-site** — local Node lab (`node test-site/server.mjs`, default `http://127.0.0.1:4173`). Not packaged into the store build.
 
-## Unit (mandatory)
+## What CI runs
+
+GitHub Actions (`pnpm compile`, `pnpm lint`, `pnpm format:check`, `pnpm test:unit`, `pnpm build`) on `ubuntu-latest`.
+
+Playwright is **not** a CI gate yet.
+
+## Unit (mandatory, and currently covered)
 
 ### Cookie engine
 
-Parse `Set-Cookie`; Max-Age / Expires; domain + host-only; path; Secure; HttpOnly; SameSite; deletion (`Max-Age=0`); overwrite order; Cookie-header serialization (stable sort: path length then name).
+Parse `Set-Cookie`; Max-Age / Expires; domain + host-only; path; Secure; HttpOnly; SameSite; deletion (`Max-Age=0`); overwrite order; Cookie-header serialization (stable sort: path length then name); native cookie mapping; ingest of multiple headers.
 
 ### Domain engine
 
-tldts registrable domains; public suffixes (`co.uk`); subdomains; exclusions; URL patterns; refuse naive splits.
+tldts registrable domains; public suffixes (`co.uk`); subdomains; exclusions; URL / match patterns.
 
 ### DNR compiler
 
@@ -24,7 +30,7 @@ Priorities 1000/900/800/700; `tabIds`; path filters; native cookie removal; fail
 
 ### Session engine
 
-Create / delete / temporary cleanup / clone / lifecycle transitions; deleting is strip → unbind → delete jar → delete metadata.
+Create / delete / temporary last-tab cleanup / lifecycle transitions.
 
 ### Persistence
 
@@ -32,9 +38,9 @@ Schema v1; migrate up; interrupted upgrade; unknown future version.
 
 ### Security
 
-Message Zod rejects; redaction of cookie values / Authorization / tokens; AES-GCM round trip; wrong password; malformed import.
+Message Zod rejects (including forged `sessionId` and origin mismatch); redaction of cookie values / Authorization / tokens; AES-GCM round trip; wrong password; tampered ciphertext.
 
-## E2E (Chromium — not optional for isolation)
+## E2E (Chromium — required for V1, not landed)
 
 Lab origin serves Alice/Bob cookie and storage endpoints.
 
@@ -44,7 +50,7 @@ Repeat: navigate, reload, redirect, `Set-Cookie`, `document.cookie`, `localStora
 
 Assert A never observes B and B never observes A.
 
-Also:
+Also required before claiming cookie isolation complete:
 
 - HttpOnly auth cookie
 - Multiple `Set-Cookie`
@@ -65,21 +71,19 @@ Also:
 
 Do not treat mocked DNR as a substitute for the Alice/Bob test.
 
-Phase 2 is incomplete until that test passes. Phase 1 lands compiler/session unit tests and E2E harness scaffolding.
+Phase 2 cookie isolation is **not** complete until that test passes.
 
 ## Page runtime tests
 
-The MAIN-world script is framework-free. Test via the lab page + content injection, plus isolated unit tests of cookie/storage helpers extracted into `modules/` (not only the IIFE).
+The MAIN-world script is framework-free. Cookie helpers are unit-tested in `modules/cookies`. Full `document.cookie` behavior still needs the lab page + unpacked extension.
 
-## Performance budgets (track, not gate in Phase 1)
+## Performance budgets (track; not a CI gate)
 
 - Popup first paint targeted < 100ms after script
 - Cookie mutation → DNR update coalesced (≥ 16ms debounce, per-tab)
 - 100 tabs / many sessions: budget manager must degrade rather than hang
 
-## CI
-
-GitHub Actions: `pnpm compile`, `pnpm lint`, `pnpm test:unit`, `pnpm build`. E2E on `ubuntu-latest` with Playwright Chromium when the suite exists.
+These have not been profiled in this repository.
 
 ## Redaction
 
@@ -89,3 +93,4 @@ Tests must not print cookie values. Fixtures use placeholders like `alice-secret
 
 - [cookie-engine.md](./cookie-engine.md) — parser, jar, header compiler details
 - [release-checklist.md](./release-checklist.md) — pre-ship verification
+- [README status](../README.md#status) — phase checklist
