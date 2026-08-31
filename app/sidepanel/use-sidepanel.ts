@@ -157,9 +157,10 @@ export function useSidePanelController(): SidePanelState & {
       setView('domain-detail');
     },
     refresh,
-    switchSession: (sessionId) => runAction({ type: 'ui.switchTabSession', sessionId }),
+    switchSession: (sessionId) =>
+      withSiteAccess(() => runAction({ type: 'ui.switchTabSession', sessionId })),
     openInSession: (sessionId) =>
-      runAction({ type: 'ui.duplicateIntoSession', sessionId }),
+      withSiteAccess(() => runAction({ type: 'ui.duplicateIntoSession', sessionId })),
     createSession: (name) =>
       withSiteAccess(() =>
         runAction({

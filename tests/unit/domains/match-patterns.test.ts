@@ -2,6 +2,7 @@ import { describe, expect, it } from 'vitest';
 import { asDomainGroupId } from '../../../modules/domain/ids.ts';
 import type { DomainGroup } from '../../../modules/domain/domain-group.ts';
 import {
+  hostPatternsForOrigin,
   matchPatternsForEntry,
   matchPatternsForGroups,
 } from '../../../modules/domains/match-patterns.ts';
@@ -60,5 +61,22 @@ describe('matchPatternsForGroups', () => {
     };
 
     expect(matchPatternsForGroups([group])).toEqual(['*://192.168.1.1/*']);
+  });
+});
+
+describe('hostPatternsForOrigin', () => {
+  it('requests the registrable domain and subdomains so auth hosts are covered', () => {
+    expect(hostPatternsForOrigin('https://mail.google.com')).toEqual([
+      '*://google.com/*',
+      '*://*.google.com/*',
+    ]);
+  });
+
+  it('uses a host-only pattern for IP origins', () => {
+    expect(hostPatternsForOrigin('http://127.0.0.1:4173')).toEqual(['*://127.0.0.1/*']);
+  });
+
+  it('ignores non-http origins', () => {
+    expect(hostPatternsForOrigin('chrome://extensions')).toEqual([]);
   });
 });

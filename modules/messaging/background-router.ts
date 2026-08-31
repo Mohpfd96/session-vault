@@ -722,12 +722,18 @@ export function createBackgroundRouter(ctx: RouterContext) {
       }
 
       if (command === 'new-temporary-session') {
-        await createSiteSession({
-          tabId,
-          name: 'Temp',
-          kind: 'temporary',
-          coordinator,
-        });
+        try {
+          await createSiteSession({
+            tabId,
+            name: 'Temp',
+            kind: 'temporary',
+            coordinator,
+          });
+        } catch (error) {
+          logger.warn('Command new-temporary-session failed', {
+            error: error instanceof Error ? error.message : 'unknown',
+          });
+        }
         return;
       }
 

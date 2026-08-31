@@ -4,6 +4,8 @@ Session Vault is local-first. No telemetry, no cloud accounts, no remote fonts.
 
 See also: [threat-model.md](./threat-model.md), [import-export.md](./import-export.md), [data-schema.md](./data-schema.md), [permissions.md](./permissions.md).
 
+Public policy for the Chrome Web Store: [https://mohpfd96.github.io/session-vault/privacy.html](https://mohpfd96.github.io/session-vault/privacy.html).
+
 ## Data stays on device
 
 | Data              | Location                                              |
@@ -31,7 +33,7 @@ Nothing is uploaded unless the user later exports a backup file from their own m
 
 ## Permissions
 
-Host access should be requested when the user enables isolation for a site. This build currently also ships install-time `<all_urls>`. See [permissions.md](./permissions.md).
+Host access is requested when the user enables isolation for a site. The packaged extension does not declare install-time `<all_urls>`. See [permissions.md](./permissions.md).
 
 ## Non-goals
 

@@ -27,14 +27,25 @@ export default defineConfig({
       'sidePanel',
       'alarms',
       'cookies',
-      'unlimitedStorage',
     ],
-    optional_permissions: ['tabGroups', 'browsingData'],
-    host_permissions: ['*://*/*'],
+    optional_permissions: [
+      'tabGroups',
+      'browsingData',
+      'unlimitedStorage',
+    ] as unknown as ('tabGroups' | 'browsingData')[],
+    optional_host_permissions: ['*://*/*'],
+    icons: {
+      16: 'icon-16.png',
+      32: 'icon-32.png',
+      48: 'icon-48.png',
+      128: 'icon-128.png',
+    },
     action: {
       default_icon: {
-        16: 'icon.svg',
-        32: 'icon.svg',
+        16: 'icon-16.png',
+        32: 'icon-32.png',
+        48: 'icon-48.png',
+        128: 'icon-128.png',
       },
     },
     commands: {

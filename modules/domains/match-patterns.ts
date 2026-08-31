@@ -1,6 +1,30 @@
 import type { DomainGroup } from '../domain/domain-group.ts';
 import type { DomainEntry } from '../domain/enums.ts';
-import { isIpHost } from '../cookies/domain.ts';
+import { isIpHost, registrableDomain } from '../cookies/domain.ts';
+
+export function hostPatternsForOrigin(origin: string): readonly string[] {
+  let parsed: URL;
+  try {
+    parsed = new URL(origin);
+  } catch {
+    return [];
+  }
+  if (parsed.protocol !== 'http:' && parsed.protocol !== 'https:') {
+    return [];
+  }
+
+  const host = parsed.hostname;
+  if (isIpHost(host)) {
+    return [chromeHostMatchPattern(host)];
+  }
+
+  const registrable = registrableDomain(host) ?? host;
+  return matchPatternsForEntry({
+    type: 'registrable-domain',
+    domain: registrable,
+    includeSubdomains: true,
+  });
+}
 
 export function chromeHostMatchPattern(host: string): string {
   if (isIpHost(host) && host.includes(':')) {

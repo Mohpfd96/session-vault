@@ -1,8 +1,5 @@
 import { browser } from 'wxt/browser';
-import {
-  containsOriginPermission,
-  requestOriginPermission,
-} from '../adapters/chrome/permissions-adapter.ts';
+import { containsOriginPermission } from '../adapters/chrome/permissions-adapter.ts';
 import { registrableDomain, isIpHost } from '../cookies/domain.ts';
 import type { DomainGroup } from '../domain/domain-group.ts';
 import { asDomainGroupId, createId } from '../domain/ids.ts';
@@ -131,12 +128,9 @@ export async function ensureManagedSite(tabId: number): Promise<ManagedSite> {
 
   const alreadyGranted = await containsOriginPermission(origin);
   if (!alreadyGranted) {
-    const granted = await requestOriginPermission(origin);
-    if (!granted) {
-      throw permissionDenied(
-        `Allow Session Vault to access ${origin} when Chrome prompts, then create the session again.`,
-      );
-    }
+    throw permissionDenied(
+      `Allow Session Vault to access ${origin} when Chrome prompts from the popup or side panel, then try again.`,
+    );
   }
 
   const registrable = registrableDomain(host) ?? host;

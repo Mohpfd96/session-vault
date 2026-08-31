@@ -14,7 +14,7 @@
   <img src="https://img.shields.io/badge/Chrome-120%2B-0f766e?logo=googlechrome&logoColor=white" alt="Chrome 120+">
   <img src="https://img.shields.io/badge/Manifest-V3-0f766e" alt="Manifest V3">
   <img src="https://img.shields.io/badge/data-local%20only-0f766e" alt="Local only">
-  <img src="https://img.shields.io/badge/license-MIT-0f766e" alt="MIT License">
+  <img src="https://img.shields.io/badge/license-GPLv3-0f766e" alt="GPLv3 License">
 </p>
 
 <p align="center">
@@ -136,7 +136,7 @@ Everything stays in this Chrome profile on this device.
 | Which tab belongs to which session | `chrome.storage.session` (cleared when Chrome restarts) |
 | Cookie jars                        | Extension IndexedDB                                     |
 
-No analytics, no remote fonts in the extension, no upload unless you export a backup yourself. Backup **encryption primitives** exist; the import/export UI is not shipped. Details: [docs/privacy.md](docs/privacy.md) and [docs/permissions.md](docs/permissions.md).
+No analytics, no remote fonts in the extension, no upload unless you export a backup yourself. Backup **encryption primitives** exist; the import/export UI is not shipped. Public policy: [session-vault privacy](https://mohpfd96.github.io/session-vault/privacy.html). Details: [docs/privacy.md](docs/privacy.md) and [docs/permissions.md](docs/permissions.md).
 
 ## What it does not isolate
 
@@ -327,11 +327,11 @@ Archive is modeled and filtered in the side panel. There is no archive action in
 | Session-colored badge text (P / W / …)                     | Not started |
 | WCAG pass (focus, contrast, reduced motion, SR status)     | Partial     |
 | Performance budgets / profiling                            | Not started |
-| Chrome Web Store listing, screenshots, privacy policy page | Not started |
+| Chrome Web Store listing, screenshots, privacy policy page | Partial     |
 | Playwright E2E in CI                                       | Not started |
-| Optional host permissions only (no install-time `*://*/*`) | Not started |
+| Optional host permissions only (no install-time `*://*/*`) | Done        |
 
-This build still declares `host_permissions: *://*/*` in the manifest. That is wider than the intended store strategy (request access when the user isolates a site). See [docs/permissions.md](docs/permissions.md).
+Host access is requested when you isolate a site. The packaged manifest does not declare install-time `*://*/*`. Store listing copy, 128px PNG icon, and the public privacy page are in [docs/chrome-web-store.md](docs/chrome-web-store.md). Screenshots still need to be captured from a loaded build.
 
 ### V1 acceptance criteria
 
@@ -376,6 +376,7 @@ Fingerprint spoofing, canvas/WebGL spoofing, residential proxies, CAPTCHA bypass
 | [Storage virtualization](docs/storage-virtualization.md)         | Page storage contract (not shipped) |
 | [Permissions](docs/permissions.md)                               | Why each Chrome permission exists   |
 | [Privacy](docs/privacy.md)                                       | Local-first data map                |
+| [Chrome Web Store](docs/chrome-web-store.md)                     | Listing copy and upload checklist   |
 | [Threat model](docs/threat-model.md)                             | Attacker goals and mitigations      |
 | [Import / export](docs/import-export.md)                         | Backup envelopes                    |
 | [Compatibility](docs/compatibility.md)                           | SW, SharedWorker, HTTP cache        |
@@ -393,4 +394,10 @@ Enable it once under **Settings → Pages → Source: GitHub Actions**.
 
 ## License
 
-[MIT](LICENSE) © 2026 Mohamad Parsaeifard
+Session Vault is dual-licensed.
+
+**GPLv3** — personal use, study, modification, and open-source projects that stay under GPLv3 are free. See [LICENSE](LICENSE).
+
+**Commercial** — closed-source or proprietary use, including organizational closed-source products, needs a separate license. [Get in touch](https://github.com/Mohpfd96).
+
+© 2026 Mohamad Parsaeifard

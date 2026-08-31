@@ -3,7 +3,7 @@
   "description": "Manage isolated website sessions and accounts in Chrome.",
   "private": true,
   "version": "0.1.0",
-  "license": "MIT",
+  "license": "GPL-3.0-only",
   "type": "module",
   "scripts": {
     "dev": "wxt",
@@ -12,6 +12,7 @@
     "build:firefox": "wxt build -b firefox",
     "zip": "wxt zip",
     "zip:firefox": "wxt zip -b firefox",
+    "icons": "node scripts/generate-icons.mjs",
     "compile": "tsc --noEmit",
     "lint": "eslint .",
     "lint:fix": "eslint . --fix",

@@ -1,0 +1,142 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Privacy Policy — Session Vault</title>
+    <meta
+      name="description"
+      content="Session Vault keeps session data on this device. No analytics, no cloud account, no sale of data."
+    />
+    <link rel="canonical" href="https://mohpfd96.github.io/session-vault/privacy.html" />
+    <meta name="theme-color" content="#0f766e" />
+    <link rel="icon" href="./icon.svg" type="image/svg+xml" />
+    <link rel="stylesheet" href="./styles.css" />
+  </head>
+  <body>
+    <a class="skip" href="#main">Skip to content</a>
+    <header class="wrap nav">
+      <a class="brand" href="./">
+        <img src="./icon.svg" width="36" height="36" alt="" />
+        Session Vault
+      </a>
+      <nav class="nav-links" aria-label="Primary">
+        <a href="./#how">How it works</a>
+        <a href="./privacy.html" aria-current="page">Privacy</a>
+        <a href="./#install">Install</a>
+        <a href="https://github.com/Mohpfd96/session-vault">GitHub</a>
+        <a class="btn btn-primary" href="./#install">Load in Chrome</a>
+      </nav>
+    </header>
+
+    <main id="main" class="wrap prose">
+      <p class="kicker">Privacy policy</p>
+      <h1>Your sessions stay on this device.</h1>
+      <p class="lede">
+        Session Vault is a Chrome extension for login isolation. It does not operate a
+        cloud service, does not create accounts, and does not include analytics.
+      </p>
+      <p class="meta">Effective 31 August 2026 · Copyright holder: Mohamad Parsaeifard</p>
+
+      <h2>What the extension stores</h2>
+      <p>
+        All product data is written by Chrome on the user’s computer. Nothing is uploaded
+        to Session Vault servers — there are none.
+      </p>
+      <ul>
+        <li>
+          <strong>Session metadata</strong> (names, colors, which site a session belongs
+          to) in <code>chrome.storage.local</code>
+        </li>
+        <li>
+          <strong>Tab-to-session bindings</strong> in <code>chrome.storage.session</code>
+          (cleared when the browser restarts)
+        </li>
+        <li><strong>Cookie jars</strong> for isolated sessions in extension IndexedDB</li>
+        <li>
+          <strong>Declarative Net Request rules</strong> that exist only for the current
+          browser session
+        </li>
+      </ul>
+      <p>
+        Cookie values are used only to isolate logins you choose. They are not sent to the
+        developer or to any third party.
+      </p>
+
+      <h2>What we do not collect</h2>
+      <ul>
+        <li>No product analytics, crash telemetry, or advertising identifiers</li>
+        <li>No cloud account, email, or billing inside the extension</li>
+        <li>No remote fonts or remote scripts in the extension</li>
+        <li>No sale, rental, or sharing of user data with third parties</li>
+      </ul>
+
+      <h2>Permissions</h2>
+      <p>
+        Session Vault does not request access to all websites at install time. When you
+        isolate a site, Chrome prompts for host access to that site’s registrable domain
+        (including subdomains, so login redirects keep working). You can deny the prompt;
+        isolation will not start for that site.
+      </p>
+      <p>
+        Optional <code>unlimitedStorage</code> may be requested in the same flow so large
+        cookie jars are not capped by Chrome’s default quota. Denying it does not grant
+        extra host access.
+      </p>
+      <p>
+        Sensitive APIs such as <code>cookies</code>, <code>scripting</code>, and
+        <code>declarativeNetRequestWithHostAccess</code> exist only to rewrite Cookie
+        headers for the tabs you bind to a session. They are not used to harvest
+        credentials for any other purpose.
+      </p>
+
+      <h2>Backups</h2>
+      <p>
+        Encrypted <code>.sessionvault</code> export is designed so the passphrase never
+        leaves the device and is never stored by the extension. Backup UI may not ship in
+        every build; when it does, files are written only where you choose.
+      </p>
+
+      <h2>How to delete data</h2>
+      <p>
+        Remove a session in the extension to drop that jar. Uninstalling Session Vault
+        deletes extension storage Chrome holds for it. Clearing Chrome profile data also
+        removes it.
+      </p>
+
+      <h2>Children</h2>
+      <p>
+        The extension is not directed at children under 13, and it does not knowingly
+        collect personal information from children.
+      </p>
+
+      <h2>Changes</h2>
+      <p>
+        If this policy changes, the date at the top of this page will change. Continued
+        use after an update means the new text applies.
+      </p>
+
+      <h2>Contact</h2>
+      <p>
+        Questions about privacy or a commercial license:
+        <a href="https://github.com/Mohpfd96">github.com/Mohpfd96</a>
+      </p>
+    </main>
+
+    <footer class="wrap footer">
+      <p class="footer-credit">
+        <span class="footer-muted">Made with</span>
+        <span aria-hidden="true">❤️</span>
+        <span class="footer-muted">by</span>
+        <span class="footer-author">Mohamad Parsaeifard</span>
+      </p>
+      <p class="footer-muted">
+        <a href="./privacy.html">Privacy</a>
+        ·
+        <a href="https://github.com/Mohpfd96/session-vault/blob/main/LICENSE">GPLv3</a>
+        ·
+        <a href="https://github.com/Mohpfd96">Commercial license — get in touch</a>
+      </p>
+    </footer>
+  </body>
+</html>

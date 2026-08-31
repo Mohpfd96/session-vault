@@ -42,8 +42,8 @@ See also: [testing.md](./testing.md), [threat-model.md](./threat-model.md), [pri
 - [ ] Host permission requested only on user enable-isolation (no install-time `*://*/*`)
 - [ ] Every permission still matches [permissions.md](./permissions.md)
 - [ ] Compatibility UI names SW / SharedWorker / HTTP cache limitations
-- [ ] Privacy policy matches local-only data handling
-- [ ] LICENSE is MIT and referenced from the README and store listing
+- [ ] Privacy policy matches local-only data handling ([site/privacy.html](../site/privacy.html))
+- [ ] LICENSE is GPL-3.0-only (dual-licensed; commercial contact listed) and referenced from the README and store listing
 
 ## Manual smoke
 
@@ -56,7 +56,9 @@ See also: [testing.md](./testing.md), [threat-model.md](./threat-model.md), [pri
 ## Store artifacts
 
 - [ ] Version bumped in package / manifest
-- [ ] Screenshots, short and long description, single-purpose wording
+- [ ] Screenshots (1280×800 or 640×400), short and long description, single-purpose wording
+- [ ] Store icon `public/icon-128.png` uploaded in the listing
+- [ ] Privacy policy URL `https://mohpfd96.github.io/session-vault/privacy.html`
 - [ ] Changelog entry for user-visible changes
 - [ ] `.sessionvault` format version unchanged or migration documented
 - [ ] No remote code, no telemetry, no unrelated features

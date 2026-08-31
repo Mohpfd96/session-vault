@@ -15,6 +15,7 @@ export default tseslint.config(
       'test-results/**',
       'coverage/**',
       'test-site/**',
+      'scripts/**',
     ],
   },
   js.configs.recommended,
