@@ -6,11 +6,15 @@ import {
 } from '../../../modules/isolation/rule-compiler.ts';
 
 describe('compileFailClosedRules', () => {
-  it('produces fail-closed strip rules with expected shape', () => {
-    const rules = compileFailClosedRules(42, {
-      failClosedStripId: 10,
-      nativeSetCookieStripId: 11,
-    });
+  it('scopes fail-closed strip rules to the site so optional host access is enough', () => {
+    const rules = compileFailClosedRules(
+      42,
+      {
+        failClosedStripId: 10,
+        nativeSetCookieStripId: 11,
+      },
+      'www.google.com',
+    );
 
     expect(rules).toHaveLength(2);
 
@@ -24,6 +28,7 @@ describe('compileFailClosedRules', () => {
     expect(requestRule?.condition).toEqual({
       tabIds: [42],
       resourceTypes: [...FAIL_CLOSED_RESOURCE_TYPES],
+      urlFilter: '||google.com^',
     });
 
     const responseRule = rules[1];

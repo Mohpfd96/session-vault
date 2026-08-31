@@ -84,14 +84,17 @@ Use these in the dashboard when Chrome asks why each API is needed.
 
 ## Screenshots
 
-Chrome requires at least one PNG: **1280×800** or **640×400**. Capture the real popup and side panel (not a mock):
+Chrome requires at least one PNG: **1280×800** or **640×400**. Listing assets live in `assets/screenshots/` (not packed into the zip).
 
-1. `pnpm build` then Load unpacked → `.output/chrome-mv3`
-2. Open a normal https site (for example `https://example.com`)
-3. Click the Session Vault icon, create two named sessions
-4. Screenshot: popup with two sessions; side panel list; isolation chip on a bound tab
+Regenerate from the GitHub Pages theme:
 
-Do not show real account cookies or inbox content. Crop to the extension UI on a generic site.
+```bash
+pnpm store:assets
+```
+
+That writes three 1280×800 screenshots, the 440×280 small tile, and the 1400×560 marquee tile. Upload screenshots and promo tiles in the dashboard as separate fields.
+
+Do not show real account cookies or inbox content.
 
 ## Submit
 

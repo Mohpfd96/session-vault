@@ -192,6 +192,7 @@ export default defineBackground(() => {
       if (sessionId !== undefined) {
         await disposeTemporarySessionIfUnused(sessionId, bindingStore);
       }
+      await cleanupTemporarySessionsWithNoTabs(bindingStore);
     });
   });
 

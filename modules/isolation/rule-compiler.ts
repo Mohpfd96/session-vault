@@ -1,4 +1,5 @@
 import type { DnrResourceType, DnrSessionRule } from '../adapters/chrome/dnr-types.ts';
+import { dnrUrlFilterForSite } from '../dnr/compiler.ts';
 
 export const DNR_PRIORITIES = {
   FAIL_CLOSED_STRIP: 1000,
@@ -24,7 +25,14 @@ export type FailClosedRuleIds = {
 export function compileFailClosedRules(
   tabId: number,
   ruleIds: FailClosedRuleIds,
+  host?: string,
 ): readonly DnrSessionRule[] {
+  const condition = {
+    tabIds: [tabId],
+    resourceTypes: [...FAIL_CLOSED_RESOURCE_TYPES],
+    ...(host !== undefined ? { urlFilter: dnrUrlFilterForSite(host) } : {}),
+  };
+
   return [
     {
       id: ruleIds.failClosedStripId,
@@ -33,10 +41,7 @@ export function compileFailClosedRules(
         type: 'modifyHeaders',
         requestHeaders: [{ header: 'Cookie', operation: 'remove' }],
       },
-      condition: {
-        tabIds: [tabId],
-        resourceTypes: [...FAIL_CLOSED_RESOURCE_TYPES],
-      },
+      condition,
     },
     {
       id: ruleIds.nativeSetCookieStripId,
@@ -45,10 +50,7 @@ export function compileFailClosedRules(
         type: 'modifyHeaders',
         responseHeaders: [{ header: 'Set-Cookie', operation: 'remove' }],
       },
-      condition: {
-        tabIds: [tabId],
-        resourceTypes: [...FAIL_CLOSED_RESOURCE_TYPES],
-      },
+      condition,
     },
   ];
 }

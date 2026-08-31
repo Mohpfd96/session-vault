@@ -73,6 +73,23 @@ export async function updateTabUrl(tabId: TabId, url: string): Promise<void> {
   await browser.tabs.update(tabId, { url });
 }
 
+export async function removeTabs(tabIds: readonly TabId[]): Promise<void> {
+  if (tabIds.length === 0) {
+    return;
+  }
+  try {
+    await browser.tabs.remove([...tabIds]);
+  } catch {
+    for (const tabId of tabIds) {
+      try {
+        await browser.tabs.remove(tabId);
+      } catch {
+        // Tab may already be gone.
+      }
+    }
+  }
+}
+
 function tabMatchesDestination(
   tabUrl: string | undefined,
   destinationUrl: string,

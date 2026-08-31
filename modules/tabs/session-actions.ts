@@ -1,6 +1,6 @@
 import { browser } from 'wxt/browser';
 import { markSessionReady } from '../domain/lifecycle.ts';
-import { asSessionId, type SessionId } from '../domain/ids.ts';
+import { asSessionId, type SessionId, type TabId } from '../domain/ids.ts';
 import type { DomainGroup } from '../domain/domain-group.ts';
 import {
   applySessionMarker,
@@ -12,9 +12,9 @@ import type { SessionProfile } from '../domain/session-profile.ts';
 import { sessionNotFound } from '../errors/index.ts';
 import { shouldDisposeTemporarySession } from '../domain/session-queries.ts';
 import { logger } from '../logging/index.ts';
-import { loadDomainGroups } from '../domains/load-groups.ts';
 import {
   createBlankTab,
+  removeTabs,
   updateTabUrl,
   waitForTabComplete,
 } from '../adapters/chrome/tabs-adapter.ts';
@@ -159,20 +159,17 @@ export async function deleteSiteSession(
     throw sessionNotFound(id);
   }
 
-  const groups = await loadDomainGroups(localPort);
   const bindings = await bindingStore.getAll();
+  const tabIds: TabId[] = [];
   for (const binding of bindings) {
     if (binding.sessionId !== id) {
       continue;
     }
-    const group = groups.find((entry) => entry.id === binding.domainGroupId);
-    if (group !== undefined) {
-      await coordinator.assignUnmanagedFailClosed(binding.tabId, group);
-      await reloadTabQuietly(binding.tabId);
-    } else {
-      await coordinator.unbindTab(binding.tabId);
-    }
+    tabIds.push(binding.tabId);
+    await coordinator.unbindTab(binding.tabId);
   }
+
+  await removeTabs(tabIds);
 
   await replaceSessionCookies(idb, id, []);
   await deleteSession(localPort, id);

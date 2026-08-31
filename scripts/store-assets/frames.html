@@ -1,0 +1,814 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <title>Session Vault store frames</title>
+    <link rel="stylesheet" href="../../site/styles.css" />
+    <style>
+      html,
+      body {
+        margin: 0;
+        background: #1a1a1a;
+      }
+
+      .board {
+        position: relative;
+        overflow: hidden;
+        background:
+          radial-gradient(1200px 500px at 10% -10%, rgb(94 234 212 / 22%), transparent 55%),
+          radial-gradient(900px 420px at 100% 0%, rgb(15 118 110 / 10%), transparent 50%),
+          var(--paper);
+        color: var(--ink);
+        font-family: var(--sans);
+      }
+
+      .board-1280 {
+        width: 1280px;
+        height: 800px;
+      }
+
+      .board-small {
+        width: 440px;
+        height: 280px;
+      }
+
+      .board-marquee {
+        width: 1400px;
+        height: 560px;
+      }
+
+      .lockup {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 10px;
+        font-weight: 650;
+        letter-spacing: -0.02em;
+      }
+
+      .lockup img {
+        width: 36px;
+        height: 36px;
+        border-radius: 9px;
+      }
+
+      .board-1280 .copy {
+        padding: 36px 56px 0;
+        text-align: center;
+      }
+
+      .board-1280 .kicker {
+        margin-bottom: 8px;
+      }
+
+      .board-1280 h1 {
+        margin: 0 0 10px;
+        font-size: 2.75rem;
+        line-height: 1;
+      }
+
+      .board-1280 .lede {
+        max-width: 36rem;
+        margin: 0 auto;
+        font-size: 1.05rem;
+      }
+
+      .stage-area {
+        display: grid;
+        place-items: center;
+        height: 520px;
+        padding: 12px 40px 28px;
+      }
+
+      .browser {
+        position: relative;
+        width: 720px;
+        height: 460px;
+        overflow: hidden;
+        border: 1px solid #e6ddd0;
+        border-radius: 18px;
+        background: #fffdf8;
+        box-shadow: var(--shadow);
+      }
+
+      .browser-bar {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        height: 44px;
+        padding: 0 14px;
+        border-bottom: 1px solid #efe7da;
+        background: #f7f1e6;
+      }
+
+      .dots {
+        display: flex;
+        gap: 6px;
+      }
+
+      .dots i {
+        width: 10px;
+        height: 10px;
+        border-radius: 99px;
+        background: #d9cfc0;
+      }
+
+      .omnibox {
+        flex: 1;
+        height: 26px;
+        padding: 0 12px;
+        border: 1px solid #e6ddd0;
+        border-radius: 999px;
+        background: #fffaf2;
+        color: var(--muted);
+        font-size: 12px;
+        line-height: 26px;
+      }
+
+      .toolbar-icon {
+        width: 22px;
+        height: 22px;
+        border-radius: 6px;
+      }
+
+      .page-fake {
+        height: calc(100% - 44px);
+        padding: 28px 32px;
+        background:
+          radial-gradient(closest-side at 50% 20%, rgb(15 118 110 / 10%), transparent 70%),
+          #fffaf2;
+      }
+
+      .page-fake .search {
+        width: 280px;
+        height: 40px;
+        margin: 72px auto 0;
+        border: 1px solid #e6ddd0;
+        border-radius: 999px;
+        background: #fff;
+      }
+
+      .popup-float {
+        position: absolute;
+        top: 56px;
+        right: 28px;
+        width: 360px;
+        margin: 0;
+      }
+
+      .manager {
+        display: grid;
+        grid-template-columns: 220px 1fr;
+        width: 980px;
+        height: 470px;
+        overflow: hidden;
+        border: 1px solid #e6ddd0;
+        border-radius: 18px;
+        background: #fffdf8;
+        box-shadow: var(--shadow);
+        text-align: left;
+      }
+
+      .manager-side {
+        display: flex;
+        flex-direction: column;
+        border-right: 1px solid #efe7da;
+        background: #fffaf2;
+      }
+
+      .manager-side header {
+        padding: 14px 14px 10px;
+        border-bottom: 1px solid #efe7da;
+      }
+
+      .manager-side header strong {
+        display: block;
+        font-size: 13px;
+      }
+
+      .manager-side header span {
+        color: var(--muted);
+        font-size: 11px;
+      }
+
+      .manager-nav {
+        display: flex;
+        flex: 1;
+        flex-direction: column;
+        gap: 2px;
+        padding: 10px;
+      }
+
+      .nav-item,
+      .site-item {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        width: 100%;
+        padding: 7px 8px;
+        border-radius: 10px;
+        font-size: 13px;
+      }
+
+      .nav-item.active,
+      .site-item.active {
+        background: #ecfdf8;
+      }
+
+      .count {
+        margin-left: auto;
+        color: var(--muted);
+        font-size: 11px;
+      }
+
+      .label {
+        padding: 8px 8px 4px;
+        color: var(--muted);
+        font-size: 10px;
+        font-weight: 700;
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+      }
+
+      .glyph.g {
+        width: 22px;
+        height: 22px;
+        font-size: 11px;
+      }
+
+      .manager-foot {
+        padding: 8px;
+        border-top: 1px solid #efe7da;
+      }
+
+      .settings-btn {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        width: 100%;
+        padding: 8px 10px;
+        border-radius: 10px;
+        color: var(--ink);
+        font-size: 13px;
+        font-weight: 600;
+      }
+
+      .settings-btn.active {
+        background: #f3eee4;
+      }
+
+      .manager-main {
+        display: flex;
+        flex-direction: column;
+        min-width: 0;
+      }
+
+      .manager-main header {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 16px 20px;
+        border-bottom: 1px solid #efe7da;
+      }
+
+      .manager-main h2 {
+        margin: 0;
+        font-family: var(--sans);
+        font-size: 16px;
+        letter-spacing: 0;
+      }
+
+      .manager-main header p {
+        margin: 2px 0 0;
+        color: var(--muted);
+        font-size: 12px;
+      }
+
+      .ghost-btn {
+        height: 30px;
+        padding: 0 10px;
+        border: 1px solid var(--line);
+        border-radius: 8px;
+        background: #fff;
+        color: var(--ink);
+        font-size: 12px;
+        font-weight: 600;
+      }
+
+      .cards {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 12px;
+        padding: 16px 20px;
+      }
+
+      .session-card {
+        position: relative;
+        overflow: hidden;
+        padding: 14px 14px 12px 18px;
+        border: 1px solid #e6ddd0;
+        border-radius: 14px;
+        background: #fffaf2;
+      }
+
+      .session-card .stripe {
+        top: 0;
+        bottom: 0;
+        left: 0;
+        width: 4px;
+        border-radius: 0;
+      }
+
+      .session-card strong {
+        font-size: 14px;
+      }
+
+      .kind {
+        display: inline-block;
+        margin-left: 6px;
+        padding: 1px 7px;
+        border: 1px solid var(--line);
+        border-radius: 999px;
+        color: var(--muted);
+        font-size: 10px;
+        font-weight: 650;
+      }
+
+      .meta {
+        margin: 4px 0 10px;
+        color: var(--muted);
+        font-size: 12px;
+      }
+
+      .card-actions {
+        display: flex;
+        gap: 6px;
+      }
+
+      .card-actions span {
+        display: inline-flex;
+        align-items: center;
+        min-height: 26px;
+        padding: 0 9px;
+        border-radius: 8px;
+        font-size: 11px;
+        font-weight: 650;
+      }
+
+      .card-actions .primary {
+        background: var(--teal);
+        color: #fff;
+      }
+
+      .card-actions .outline {
+        border: 1px solid var(--line);
+        background: #fff;
+      }
+
+      .settings-body {
+        padding: 28px 36px;
+      }
+
+      .settings-body h2 {
+        margin: 0 0 6px;
+        font-family: var(--sans);
+        font-size: 20px;
+        letter-spacing: 0;
+      }
+
+      .settings-body > p {
+        margin: 0 0 22px;
+        color: var(--muted);
+        font-size: 13px;
+      }
+
+      .settings-body h3 {
+        margin: 0 0 10px;
+        font-size: 13px;
+      }
+
+      .theme-row {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        margin-bottom: 22px;
+        padding: 12px 14px;
+        border: 1px solid var(--line);
+        border-radius: 14px;
+      }
+
+      .theme-select {
+        min-width: 110px;
+        padding: 6px 10px;
+        border: 1px solid var(--line);
+        border-radius: 8px;
+        background: #fff;
+        font-size: 12px;
+      }
+
+      .privacy-pills {
+        display: flex;
+        gap: 8px;
+        margin-bottom: 12px;
+      }
+
+      .privacy-pills span {
+        padding: 4px 10px;
+        border-radius: 999px;
+        background: #d1fae5;
+        color: var(--teal-dark);
+        font-size: 11px;
+        font-weight: 700;
+      }
+
+      .privacy-pills span.muted {
+        background: #f3eee4;
+        color: var(--ink);
+      }
+
+      .settings-body ul {
+        margin: 0;
+        padding-left: 18px;
+        color: var(--muted);
+        font-size: 13px;
+      }
+
+      .settings-body li + li {
+        margin-top: 4px;
+      }
+
+      .small-inner {
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        height: 100%;
+        padding: 22px 22px 18px;
+      }
+
+      .small-inner .lockup {
+        justify-content: flex-start;
+        font-size: 15px;
+      }
+
+      .small-inner .lockup img {
+        width: 32px;
+        height: 32px;
+      }
+
+      .small-inner h1 {
+        margin: 10px 0 6px;
+        font-size: 1.55rem;
+        line-height: 1.05;
+      }
+
+      .small-inner .lede {
+        margin: 0;
+        font-size: 12px;
+      }
+
+      .small-pills {
+        display: flex;
+        gap: 6px;
+      }
+
+      .small-pills span {
+        padding: 5px 8px;
+        border: 1px solid var(--line);
+        border-radius: 999px;
+        background: rgb(255 250 242 / 80%);
+        color: var(--muted);
+        font-size: 10px;
+        font-weight: 650;
+      }
+
+      .marquee-inner {
+        display: grid;
+        grid-template-columns: 1.05fr 0.95fr;
+        align-items: center;
+        height: 100%;
+        padding: 36px 48px;
+        gap: 28px;
+      }
+
+      .marquee-copy .lockup {
+        justify-content: flex-start;
+        margin-bottom: 18px;
+      }
+
+      .marquee-copy .kicker {
+        margin-bottom: 8px;
+      }
+
+      .marquee-copy h1 {
+        margin: 0 0 12px;
+        font-size: 3.1rem;
+        line-height: 0.98;
+      }
+
+      .marquee-copy .lede {
+        margin: 0 0 22px;
+        font-size: 1.05rem;
+      }
+
+      .marquee-copy .pills {
+        margin: 0;
+      }
+
+      .marquee-stage {
+        position: relative;
+        height: 100%;
+      }
+
+      .marquee-stage .popup {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        width: 360px;
+        margin: 0;
+        transform: translate(-50%, -50%);
+      }
+    </style>
+  </head>
+  <body>
+    <section id="shot-1" class="board board-1280">
+      <div class="copy">
+        <div class="lockup">
+          <img src="../../site/icon.svg" alt="" />
+          Session Vault
+        </div>
+        <p class="kicker">Chrome extension</p>
+        <h1>One website. Separate logins.</h1>
+        <p class="lede">
+          Keep personal, work, and client accounts apart in different Chrome tabs — isolated
+          cookies, no second profile.
+        </p>
+      </div>
+      <div class="stage-area">
+        <div class="browser">
+          <div class="browser-bar">
+            <span class="dots" aria-hidden="true"><i></i><i></i><i></i></span>
+            <div class="omnibox">google.com</div>
+            <img class="toolbar-icon" src="../../site/icon.svg" alt="" />
+          </div>
+          <div class="page-fake"><div class="search"></div></div>
+          <div class="popup popup-float">
+            <div class="popup-head">
+              <span class="glyph">G</span>
+              <div>
+                <h3>google.com</h3>
+                <p>3 sessions on this site</p>
+              </div>
+              <span class="chip">Isolated</span>
+            </div>
+            <div class="popup-list">
+              <div class="popup-row current">
+                <span class="stripe" style="background: #0f766e"></span>
+                <div>
+                  <strong>Work <span class="badge">This tab</span></strong>
+                  <span>Persistent · 2 tabs</span>
+                </div>
+              </div>
+              <div class="popup-row">
+                <span class="stripe" style="background: #c2410c"></span>
+                <div>
+                  <strong>Personal</strong>
+                  <span>Persistent · 1 tab</span>
+                </div>
+              </div>
+              <div class="popup-row">
+                <span class="stripe" style="background: #7c3aed"></span>
+                <div>
+                  <strong>Client A</strong>
+                  <span>Temporary · 1 tab</span>
+                </div>
+              </div>
+            </div>
+            <div class="popup-foot">
+              <span class="mini">Session</span>
+              <span class="mini ghost">Temporary</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="shot-2" class="board board-1280">
+      <div class="copy">
+        <div class="lockup">
+          <img src="../../site/icon.svg" alt="" />
+          Session Vault
+        </div>
+        <p class="kicker">Inside the vault</p>
+        <h1>Organize every site and session.</h1>
+        <p class="lede">
+          View active sessions, manage tabs, and keep personal, work, and client logins neatly
+          separated.
+        </p>
+      </div>
+      <div class="stage-area">
+        <div class="manager">
+          <aside class="manager-side">
+            <header>
+              <strong>Sessions</strong>
+              <span>Isolated logins</span>
+            </header>
+            <nav class="manager-nav">
+              <div class="nav-item active">
+                All sites <span class="count">3</span>
+              </div>
+              <p class="label">Sites</p>
+              <div class="site-item">
+                <span class="glyph g">G</span>
+                google.com <span class="count">3</span>
+              </div>
+            </nav>
+            <div class="manager-foot">
+              <div class="settings-btn">Settings</div>
+            </div>
+          </aside>
+          <div class="manager-main">
+            <header>
+              <div>
+                <h2>All sites</h2>
+                <p>3 sessions</p>
+              </div>
+              <span class="ghost-btn">Refresh</span>
+            </header>
+            <div class="cards">
+              <article class="session-card">
+                <span class="stripe" style="background: #0f766e"></span>
+                <strong>Work</strong>
+                <span class="kind">Persistent</span>
+                <p class="meta">google.com · 2 tabs · Just now</p>
+                <div class="card-actions">
+                  <span class="primary">Open</span>
+                  <span class="outline">Rename</span>
+                  <span class="outline">Delete</span>
+                </div>
+              </article>
+              <article class="session-card">
+                <span class="stripe" style="background: #c2410c"></span>
+                <strong>Personal</strong>
+                <span class="kind">Persistent</span>
+                <p class="meta">google.com · 1 tab · Just now</p>
+                <div class="card-actions">
+                  <span class="primary">Open</span>
+                  <span class="outline">Rename</span>
+                  <span class="outline">Delete</span>
+                </div>
+              </article>
+              <article class="session-card">
+                <span class="stripe" style="background: #7c3aed"></span>
+                <strong>Client A</strong>
+                <span class="kind">Temporary</span>
+                <p class="meta">google.com · 1 tab · Just now</p>
+                <div class="card-actions">
+                  <span class="primary">Open</span>
+                  <span class="outline">Rename</span>
+                  <span class="outline">Delete</span>
+                </div>
+              </article>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="shot-3" class="board board-1280">
+      <div class="copy">
+        <div class="lockup">
+          <img src="../../site/icon.svg" alt="" />
+          Session Vault
+        </div>
+        <p class="kicker">Privacy</p>
+        <h1>Your sessions never leave this machine.</h1>
+        <p class="lede">
+          No cloud account. No telemetry. Host access is requested per site — not for every
+          website at install.
+        </p>
+      </div>
+      <div class="stage-area">
+        <div class="manager">
+          <aside class="manager-side">
+            <header>
+              <strong>Sessions</strong>
+              <span>Isolated logins</span>
+            </header>
+            <nav class="manager-nav">
+              <div class="nav-item">All sites <span class="count">3</span></div>
+              <p class="label">Sites</p>
+              <div class="site-item">
+                <span class="glyph g">G</span>
+                google.com <span class="count">3</span>
+              </div>
+            </nav>
+            <div class="manager-foot">
+              <div class="settings-btn active">Settings</div>
+            </div>
+          </aside>
+          <div class="manager-main">
+            <div class="settings-body">
+              <h2>Settings</h2>
+              <p>Session Vault stays on this device. Sessions and cookies are never uploaded.</p>
+              <h3>Appearance</h3>
+              <div class="theme-row">
+                <span>Theme</span>
+                <span class="theme-select">System</span>
+              </div>
+              <h3>Privacy</h3>
+              <div class="privacy-pills">
+                <span>Local only</span>
+                <span class="muted">No telemetry</span>
+                <span class="muted">No cloud sync</span>
+              </div>
+              <ul>
+                <li>Multiple logins on the same site stay in separate cookie jars</li>
+                <li>Host access is requested per site when you create a session</li>
+                <li>Nothing is sent to a remote server</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="tile-small" class="board board-small">
+      <div class="small-inner">
+        <div>
+          <div class="lockup">
+            <img src="../../site/icon.svg" alt="" />
+            Session Vault
+          </div>
+          <h1>One website.<br />Separate logins.</h1>
+          <p class="lede">Isolated cookies in Chrome. Nothing leaves this browser.</p>
+        </div>
+        <div class="small-pills">
+          <span>Local-only</span>
+          <span>Fail-closed</span>
+          <span>MV3</span>
+        </div>
+      </div>
+    </section>
+
+    <section id="tile-marquee" class="board board-marquee">
+      <div class="marquee-inner">
+        <div class="marquee-copy">
+          <div class="lockup">
+            <img src="../../site/icon.svg" alt="" />
+            Session Vault
+          </div>
+          <p class="kicker">Chrome extension</p>
+          <h1>One website.<br />Separate logins.</h1>
+          <p class="lede">
+            Open the same site in two tabs, give each tab its own session, and keep those
+            accounts from sharing cookies.
+          </p>
+          <div class="pills">
+            <span class="pill">Isolated cookies</span>
+            <span class="pill">Local-only data</span>
+            <span class="pill">No second profile</span>
+          </div>
+        </div>
+        <div class="marquee-stage">
+          <div class="popup">
+            <div class="popup-head">
+              <span class="glyph">G</span>
+              <div>
+                <h3>google.com</h3>
+                <p>3 sessions on this site</p>
+              </div>
+              <span class="chip">Isolated</span>
+            </div>
+            <div class="popup-list">
+              <div class="popup-row current">
+                <span class="stripe" style="background: #0f766e"></span>
+                <div>
+                  <strong>Work <span class="badge">This tab</span></strong>
+                  <span>Persistent · 2 tabs</span>
+                </div>
+              </div>
+              <div class="popup-row">
+                <span class="stripe" style="background: #c2410c"></span>
+                <div>
+                  <strong>Personal</strong>
+                  <span>Persistent · 1 tab</span>
+                </div>
+              </div>
+              <div class="popup-row">
+                <span class="stripe" style="background: #7c3aed"></span>
+                <div>
+                  <strong>Client A</strong>
+                  <span>Temporary · 1 tab</span>
+                </div>
+              </div>
+            </div>
+            <div class="popup-foot">
+              <span class="mini">Session</span>
+              <span class="mini ghost">Temporary</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </body>
+</html>

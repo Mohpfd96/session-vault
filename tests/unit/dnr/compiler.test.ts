@@ -59,7 +59,7 @@ describe('DNR compiler', () => {
     const strip = compiled.rules.find(
       (rule) => rule.priority === DNR_PRIORITIES.NATIVE_SET_COOKIE_STRIP,
     );
-    expect(strip?.condition.requestDomains).toBeUndefined();
+    expect(strip?.condition.urlFilter).toBe('||example.com^');
     const siteRule = compiled.rules.find(
       (rule) => rule.priority === DNR_PRIORITIES.VIRTUAL_COOKIE_SITE,
     );

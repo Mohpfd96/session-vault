@@ -13,6 +13,7 @@
     "zip": "wxt zip",
     "zip:firefox": "wxt zip -b firefox",
     "icons": "node scripts/generate-icons.mjs",
+    "store:assets": "node scripts/capture-store-assets.mjs",
     "compile": "tsc --noEmit",
     "lint": "eslint .",
     "lint:fix": "eslint . --fix",

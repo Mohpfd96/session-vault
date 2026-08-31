@@ -131,14 +131,7 @@ function PopupApp() {
               maxHeight="400px"
               onSelect={(item) => {
                 void run(async () => {
-                  if (item.session.id === popup.snapshot.currentSessionId) {
-                    window.close();
-                    return null;
-                  }
-                  const message =
-                    popup.snapshot.isolationStatus === 'unassigned'
-                      ? await popup.switchSession(item.session.id)
-                      : await popup.openSession(item.session.id);
+                  const message = await popup.openSession(item.session.id);
                   if (message === null) {
                     window.close();
                   }
@@ -177,8 +170,9 @@ function PopupApp() {
         initialName={nextSessionName(popup.snapshot.sessions.length)}
         onOpenChange={setCreateOpen}
         onSubmit={(name) => {
-          setCreateOpen(false);
-          void run(() => popup.createSession(name));
+          void run(() => popup.createSession(name)).finally(() => {
+            setCreateOpen(false);
+          });
         }}
       />
 
@@ -209,8 +203,8 @@ function PopupApp() {
         title="Delete session?"
         description={
           deleteTarget !== undefined
-            ? `Delete “${deleteTarget.session.name}” and its isolated cookies. Tabs using it will be logged out.`
-            : 'Delete this session and its isolated cookies.'
+            ? `Delete “${deleteTarget.session.name}” and its isolated cookies. Tabs in this session will close.`
+            : 'Delete this session and its isolated cookies. Tabs in this session will close.'
         }
         confirmLabel="Delete session"
         destructive

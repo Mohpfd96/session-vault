@@ -46,15 +46,24 @@ const DEFAULT_RESOURCE_TYPES = [
   'other',
 ] as const;
 
-function stripCookieRule(tabId: number, allocator: RuleIdAllocator): DnrRule {
+function hostScopedCondition(tabId: number, host: string): DnrRule['condition'] {
+  return {
+    tabIds: [tabId],
+    urlFilter: dnrUrlFilterForSite(host),
+    resourceTypes: [...DEFAULT_RESOURCE_TYPES],
+  };
+}
+
+function stripCookieRule(
+  tabId: number,
+  host: string,
+  allocator: RuleIdAllocator,
+): DnrRule {
   const requestHeaders: ModifyHeaderInfo[] = [{ header: 'Cookie', operation: 'remove' }];
   return {
     id: allocator.nextId(),
     priority: DNR_PRIORITIES.FAIL_CLOSED_STRIP,
-    condition: {
-      tabIds: [tabId],
-      resourceTypes: [...DEFAULT_RESOURCE_TYPES],
-    },
+    condition: hostScopedCondition(tabId, host),
     action: {
       type: 'modifyHeaders',
       requestHeaders,
@@ -62,17 +71,18 @@ function stripCookieRule(tabId: number, allocator: RuleIdAllocator): DnrRule {
   };
 }
 
-function stripSetCookieRule(tabId: number, allocator: RuleIdAllocator): DnrRule {
+function stripSetCookieRule(
+  tabId: number,
+  host: string,
+  allocator: RuleIdAllocator,
+): DnrRule {
   const responseHeaders: ModifyHeaderInfo[] = [
     { header: 'Set-Cookie', operation: 'remove' },
   ];
   return {
     id: allocator.nextId(),
     priority: DNR_PRIORITIES.NATIVE_SET_COOKIE_STRIP,
-    condition: {
-      tabIds: [tabId],
-      resourceTypes: [...DEFAULT_RESOURCE_TYPES],
-    },
+    condition: hostScopedCondition(tabId, host),
     action: {
       type: 'modifyHeaders',
       responseHeaders,
@@ -82,6 +92,18 @@ function stripSetCookieRule(tabId: number, allocator: RuleIdAllocator): DnrRule 
 
 function dnrHostLiteral(host: string): string {
   return host.includes(':') ? `[${host}]` : host;
+}
+
+/** Scope DNR rules to a host. Unscoped tab rules need <all_urls> and fail with optional host access. */
+export function dnrUrlFilterForHost(host: string): string {
+  return `||${dnrHostLiteral(host)}^`;
+}
+
+export function dnrUrlFilterForSite(host: string): string {
+  if (isIpHost(host)) {
+    return dnrUrlFilterForHost(host);
+  }
+  return dnrUrlFilterForHost(registrableDomain(host) ?? host);
 }
 
 function cookieMatchCondition(
@@ -200,7 +222,7 @@ function compileHealthyTabRules(
   allocator: RuleIdAllocator,
 ): DnrRule[] {
   const tabId = input.tabId as number;
-  const rules: DnrRule[] = [stripSetCookieRule(tabId, allocator)];
+  const rules: DnrRule[] = [stripSetCookieRule(tabId, input.host, allocator)];
 
   const paths = uniqueCookiePaths(input.cookies);
   const allRoot = paths.length === 0 || paths.every((path) => path === '/');
@@ -252,7 +274,7 @@ function compileFailClosedTabRules(
   input: TabCompilationInput,
   allocator: RuleIdAllocator,
 ): DnrRule[] {
-  return [stripCookieRule(input.tabId as number, allocator)];
+  return [stripCookieRule(input.tabId as number, input.host, allocator)];
 }
 
 export function compileTabRules(

@@ -14,16 +14,24 @@ export function hostPatternsForOrigin(origin: string): readonly string[] {
   }
 
   const host = parsed.hostname;
+  const hostLit = chromeHostLiteral(host);
+  const patterns = new Set<string>([`${parsed.protocol}//${hostLit}/*`]);
+
   if (isIpHost(host)) {
-    return [chromeHostMatchPattern(host)];
+    return [...patterns];
   }
 
   const registrable = registrableDomain(host) ?? host;
-  return matchPatternsForEntry({
-    type: 'registrable-domain',
-    domain: registrable,
-    includeSubdomains: true,
-  });
+  patterns.add(`${parsed.protocol}//${registrable}/*`);
+  patterns.add(`${parsed.protocol}//*.${registrable}/*`);
+  return [...patterns];
+}
+
+function chromeHostLiteral(host: string): string {
+  if (isIpHost(host) && host.includes(':')) {
+    return `[${host}]`;
+  }
+  return host;
 }
 
 export function chromeHostMatchPattern(host: string): string {

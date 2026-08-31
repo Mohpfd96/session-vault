@@ -2,6 +2,8 @@ export { DNR_PRIORITIES, type DnrPriorityName } from './priorities.ts';
 export {
   compileSessionRules,
   compileTabRules,
+  dnrUrlFilterForHost,
+  dnrUrlFilterForSite,
   type CompileSessionRulesInput,
   type CompileSessionRulesResult,
   type CompiledTabRules,

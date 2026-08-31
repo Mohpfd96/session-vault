@@ -268,7 +268,7 @@ Context menu today: **Open side panel** on the toolbar icon only. There is no â€
 | Item                                                       | State       |
 | ---------------------------------------------------------- | ----------- |
 | Temporary sessions with last-tab cleanup                   | Done        |
-| Delete session (unbind, drop jar, drop metadata)           | Done        |
+| Delete session (close tabs, drop jar, drop metadata)       | Done        |
 | Browser-restart: tab IDs discarded, unassigned + strip     | Done        |
 | MV3 worker init: restore bindings, drop stale, rebuild DNR | Done        |
 | Archive / unarchive (domain transitions exist)             | Partial     |

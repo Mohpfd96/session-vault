@@ -447,8 +447,8 @@ function ManagerApp() {
         title="Delete session?"
         description={
           deleteTarget !== undefined
-            ? `Delete “${deleteTarget.session.name}” and its isolated cookies. Tabs using it will be logged out.`
-            : 'Delete this session and its isolated cookies.'
+            ? `Delete “${deleteTarget.session.name}” and its isolated cookies. Tabs in this session will close.`
+            : 'Delete this session and its isolated cookies. Tabs in this session will close.'
         }
         confirmLabel="Delete session"
         destructive

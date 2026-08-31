@@ -146,16 +146,24 @@ async function installRules(
   const map = await store.getMap();
   const used = new Set(allTrackedRuleIds(map));
 
+  if (host === undefined) {
+    return { assignmentState: 'degraded', ruleIds: [] };
+  }
+
   try {
     let rules: DnrSessionRule[];
     let nextState = assignmentState;
 
-    if (host === undefined || failClosedAssignment(assignmentState)) {
+    if (failClosedAssignment(assignmentState)) {
       const { allocator } = createFreeIdAllocator(used);
-      const compiled = compileFailClosedRules(tabId, {
-        failClosedStripId: allocator.nextId(),
-        nativeSetCookieStripId: allocator.nextId(),
-      });
+      const compiled = compileFailClosedRules(
+        tabId,
+        {
+          failClosedStripId: allocator.nextId(),
+          nativeSetCookieStripId: allocator.nextId(),
+        },
+        host,
+      );
       rules = [...compiled];
     } else {
       const { allocator } = createFreeIdAllocator(used);
@@ -193,10 +201,14 @@ async function installRules(
       error: error instanceof Error ? error.message : 'unknown',
     });
     const { allocator } = createFreeIdAllocator(used);
-    const compiled = compileFailClosedRules(tabId, {
-      failClosedStripId: allocator.nextId(),
-      nativeSetCookieStripId: allocator.nextId(),
-    });
+    const compiled = compileFailClosedRules(
+      tabId,
+      {
+        failClosedStripId: allocator.nextId(),
+        nativeSetCookieStripId: allocator.nextId(),
+      },
+      host,
+    );
     try {
       await updateSessionRules({ addRules: [...compiled] });
       await store.setMap(
@@ -214,7 +226,7 @@ async function installRules(
       logger.error('Failed to install fail-closed DNR rules after install error', {
         tabId,
       });
-      throw error;
+      return { assignmentState: 'degraded', ruleIds: [] };
     }
   }
 }
@@ -251,7 +263,11 @@ export function createVirtualExtensionIsolationProvider(
         if (error instanceof DomainError && error.code === 'RuleCapacityExceeded') {
           return installRules(ruleStore, input.tabId, 'degraded', host, []);
         }
-        throw error;
+        logger.error('bindTab failed; keeping tab bound without DNR', {
+          tabId: input.tabId,
+          error: error instanceof Error ? error.message : 'unknown',
+        });
+        return { assignmentState: 'degraded', ruleIds: [] };
       }
     },
 
@@ -282,7 +298,8 @@ export function createVirtualExtensionIsolationProvider(
     },
 
     async installFailClosedStrip(tabId: TabId): Promise<IsolationResult> {
-      return installRules(ruleStore, tabId, 'unassigned', undefined, []);
+      const host = await resolveHost(tabId);
+      return installRules(ruleStore, tabId, 'unassigned', host, []);
     },
   };
 }

@@ -1,5 +1,6 @@
 import { browser } from 'wxt/browser';
 import type { HttpHeader } from '../../cookies/ingest.ts';
+import { logger } from '../../logging/index.ts';
 
 export type HeadersReceivedDetails = {
   readonly tabId: number;
@@ -27,10 +28,17 @@ export function subscribeOnHeadersReceived(
     return undefined;
   };
 
-  browser.webRequest.onHeadersReceived.addListener(listener, { urls: ['<all_urls>'] }, [
-    'responseHeaders',
-    'extraHeaders',
-  ]);
+  try {
+    browser.webRequest.onHeadersReceived.addListener(
+      listener,
+      { urls: ['http://*/*', 'https://*/*'] },
+      ['responseHeaders', 'extraHeaders'],
+    );
+  } catch (error) {
+    logger.warn('webRequest listener was not attached', {
+      error: error instanceof Error ? error.message : 'unknown',
+    });
+  }
 
   return {
     unsubscribe: () => {

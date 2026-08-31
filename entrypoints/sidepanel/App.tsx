@@ -562,8 +562,9 @@ function SidePanelShell() {
         initialName={nextSessionName(panel.snapshot.sessions.length)}
         onOpenChange={setCreateOpen}
         onSubmit={(name) => {
-          setCreateOpen(false);
-          void run(() => panel.createSession(name));
+          void run(() => panel.createSession(name)).finally(() => {
+            setCreateOpen(false);
+          });
         }}
       />
 
@@ -593,8 +594,8 @@ function SidePanelShell() {
         title="Delete session?"
         description={
           panel.selectedSession !== undefined
-            ? `Delete “${panel.selectedSession.session.name}” and its isolated cookies. Tabs using it will be logged out.`
-            : 'Delete this session and its isolated cookies.'
+            ? `Delete “${panel.selectedSession.session.name}” and its isolated cookies. Tabs in this session will close.`
+            : 'Delete this session and its isolated cookies. Tabs in this session will close.'
         }
         confirmLabel="Delete session"
         destructive

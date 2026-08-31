@@ -65,15 +65,18 @@ describe('matchPatternsForGroups', () => {
 });
 
 describe('hostPatternsForOrigin', () => {
-  it('requests the registrable domain and subdomains so auth hosts are covered', () => {
+  it('requests this origin plus the registrable domain so auth hosts are covered', () => {
     expect(hostPatternsForOrigin('https://mail.google.com')).toEqual([
-      '*://google.com/*',
-      '*://*.google.com/*',
+      'https://mail.google.com/*',
+      'https://google.com/*',
+      'https://*.google.com/*',
     ]);
   });
 
-  it('uses a host-only pattern for IP origins', () => {
-    expect(hostPatternsForOrigin('http://127.0.0.1:4173')).toEqual(['*://127.0.0.1/*']);
+  it('omits the port from IP origin patterns', () => {
+    expect(hostPatternsForOrigin('http://127.0.0.1:4173')).toEqual([
+      'http://127.0.0.1/*',
+    ]);
   });
 
   it('ignores non-http origins', () => {
