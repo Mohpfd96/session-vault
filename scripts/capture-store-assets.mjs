@@ -11,7 +11,12 @@ const shots = [
   { id: 'shot-1', file: 'Session Vault - screenshot 1.png', width: 1280, height: 800 },
   { id: 'shot-2', file: 'Session Vault - screenshot 2.png', width: 1280, height: 800 },
   { id: 'shot-3', file: 'Session Vault - screenshot 3.png', width: 1280, height: 800 },
-  { id: 'tile-small', file: 'Session Vault - Small promo tile.png', width: 440, height: 280 },
+  {
+    id: 'tile-small',
+    file: 'Session Vault - Small promo tile.png',
+    width: 440,
+    height: 280,
+  },
   {
     id: 'tile-marquee',
     file: 'Session Vault - Marquee promo tile.png',

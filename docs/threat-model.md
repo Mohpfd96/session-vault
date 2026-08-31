@@ -108,13 +108,13 @@ This model is the security contract for V1. Mitigations marked **shipped** exist
 
 ## T11 — Session deletion race
 
-|            |                                                                                                                                                           |
-| ---------- | --------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| Likelihood | M                                                                                                                                                         |
-| Impact     | H                                                                                                                                                         |
-| Scenario   | Tab still bound while jar deleted; next rebuild uses empty/wrong jar or native.                                                                           |
+|            |                                                                                                                                                                                             |
+| ---------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Likelihood | M                                                                                                                                                                                           |
+| Impact     | H                                                                                                                                                                                           |
+| Scenario   | Tab still bound while jar deleted; next rebuild uses empty/wrong jar or native.                                                                                                             |
 | Mitigation | **Shipped (best-effort):** delete unbinds and closes session tabs, then drops the jar. Ordered `deleting` lifecycle strip → unbind → close tabs → jar → metadata should stay the only path. |
-| Tests      | **Missing:** delete while requests in flight.                                                                                                             |
+| Tests      | **Missing:** delete while requests in flight.                                                                                                                                               |
 
 ## T12 — Rapid concurrent cookie mutations
 
