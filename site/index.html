@@ -17,24 +17,47 @@
     />
     <meta property="og:type" content="website" />
     <meta property="og:url" content="https://mohpfd96.github.io/session-vault/" />
-    <meta name="twitter:card" content="summary" />
+    <meta
+      property="og:image"
+      content="https://mohpfd96.github.io/session-vault/og.png"
+    />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta
+      name="twitter:image"
+      content="https://mohpfd96.github.io/session-vault/og.png"
+    />
     <link rel="icon" href="./icon.svg" type="image/svg+xml" />
+    <link rel="apple-touch-icon" href="./apple-touch-icon.png" />
     <link rel="stylesheet" href="./styles.css" />
   </head>
   <body>
     <a class="skip" href="#main">Skip to content</a>
-    <header class="wrap nav">
-      <a class="brand" href="./">
-        <img src="./icon.svg" width="36" height="36" alt="" />
-        Session Vault
-      </a>
-      <nav class="nav-links" aria-label="Primary">
-        <a href="#how">How it works</a>
-        <a href="./privacy.html">Privacy</a>
-        <a href="#install">Install</a>
-        <a href="https://github.com/Mohpfd96/session-vault">GitHub</a>
-        <a class="btn btn-primary" href="#install">Load in Chrome</a>
-      </nav>
+    <header class="nav-bar">
+      <div class="wrap nav">
+        <a class="brand" href="./">
+          <img src="./icon.svg" width="36" height="36" alt="" />
+          Session Vault
+        </a>
+        <details class="nav-menu">
+          <summary>Menu</summary>
+          <nav aria-label="Mobile">
+            <a href="#how">How it works</a>
+            <a href="#product">Product</a>
+            <a href="./privacy.html">Privacy</a>
+            <a href="#install">Install</a>
+            <a href="https://github.com/Mohpfd96/session-vault">GitHub</a>
+            <a class="btn btn-primary" href="#install">Load in Chrome</a>
+          </nav>
+        </details>
+        <nav class="nav-links" aria-label="Primary">
+          <a href="#how">How it works</a>
+          <a href="#product">Product</a>
+          <a href="./privacy.html">Privacy</a>
+          <a href="#install">Install</a>
+          <a href="https://github.com/Mohpfd96/session-vault">GitHub</a>
+          <a class="btn btn-primary" href="#install">Load in Chrome</a>
+        </nav>
+      </div>
     </header>
 
     <main id="main">
@@ -62,42 +85,51 @@
         </div>
 
         <div class="stage" aria-hidden="true">
-          <div class="stage-glow"></div>
-          <div class="popup">
-            <div class="popup-head">
-              <span class="glyph">G</span>
-              <div>
-                <h3>google.com</h3>
-                <p>3 sessions on this site</p>
-              </div>
-              <span class="chip">Isolated</span>
+          <div class="browser">
+            <div class="browser-bar">
+              <span class="dots"><i></i><i></i><i></i></span>
+              <div class="omnibox">google.com</div>
+              <img class="toolbar-icon" src="./icon.svg" alt="" />
             </div>
-            <div class="popup-list">
-              <div class="popup-row current">
-                <span class="stripe" style="background: #0f766e"></span>
-                <div>
-                  <strong>Work <span class="badge">This tab</span></strong>
-                  <span>Persistent · 2 tabs</span>
+            <div class="browser-page">
+              <div class="page-search"></div>
+              <div class="popup">
+                <div class="popup-head">
+                  <span class="glyph">G</span>
+                  <div>
+                    <h3>google.com</h3>
+                    <p>3 sessions on this site</p>
+                  </div>
+                  <span class="chip">Isolated</span>
+                </div>
+                <div class="popup-list">
+                  <div class="popup-row current">
+                    <span class="stripe" style="background: #0f766e"></span>
+                    <div>
+                      <strong>Work <span class="badge">This tab</span></strong>
+                      <span>Persistent · 2 tabs</span>
+                    </div>
+                  </div>
+                  <div class="popup-row">
+                    <span class="stripe" style="background: #c2410c"></span>
+                    <div>
+                      <strong>Personal</strong>
+                      <span>Persistent · 1 tab</span>
+                    </div>
+                  </div>
+                  <div class="popup-row">
+                    <span class="stripe" style="background: #7c3aed"></span>
+                    <div>
+                      <strong>Client A</strong>
+                      <span>Temporary · 1 tab</span>
+                    </div>
+                  </div>
+                </div>
+                <div class="popup-foot">
+                  <span class="mini">Session</span>
+                  <span class="mini ghost">Temporary</span>
                 </div>
               </div>
-              <div class="popup-row">
-                <span class="stripe" style="background: #c2410c"></span>
-                <div>
-                  <strong>Personal</strong>
-                  <span>Persistent · 1 tab</span>
-                </div>
-              </div>
-              <div class="popup-row">
-                <span class="stripe" style="background: #7c3aed"></span>
-                <div>
-                  <strong>Client A</strong>
-                  <span>Temporary · 1 tab</span>
-                </div>
-              </div>
-            </div>
-            <div class="popup-foot">
-              <span class="mini">Session</span>
-              <span class="mini ghost">Temporary</span>
             </div>
           </div>
         </div>
@@ -157,6 +189,46 @@
         </div>
       </section>
 
+      <section class="wrap" id="product">
+        <div class="section-head">
+          <p class="kicker">Product</p>
+          <h2>Popup, manager, and settings — on this device.</h2>
+          <p>
+            Bind the current tab, browse every session, or confirm that nothing is
+            uploaded. These are the same frames used for the Chrome Web Store listing.
+          </p>
+        </div>
+        <div class="gallery">
+          <figure>
+            <img
+              src="./images/screenshot-popup.png"
+              width="1280"
+              height="800"
+              alt="Session Vault popup on google.com with Work, Personal, and Client A sessions. Isolation status Isolated."
+            />
+            <figcaption>Popup — switch sessions on the site you already opened</figcaption>
+          </figure>
+          <figure>
+            <img
+              src="./images/screenshot-manager.png"
+              width="1280"
+              height="800"
+              alt="Session Vault manager listing Work, Personal, and Client A sessions for google.com."
+            />
+            <figcaption>Manager — every site and session in one place</figcaption>
+          </figure>
+          <figure>
+            <img
+              src="./images/screenshot-settings.png"
+              width="1280"
+              height="800"
+              alt="Session Vault settings with Local only, No telemetry, and No cloud sync."
+            />
+            <figcaption>Settings — local-only, no telemetry, no cloud sync</figcaption>
+          </figure>
+        </div>
+      </section>
+
       <section class="wrap">
         <div class="section-head">
           <p class="kicker">Inside the vault</p>
@@ -176,15 +248,15 @@
             <p>
               Unbound, degraded, or unrecoverable tabs get no authentication cookies. A
               logged-out page is the safe outcome. Cross-session leakage is treated as a
-              severity-zero defect.
+              defect, not a warning.
             </p>
           </article>
           <article class="card">
-            <h3>Page storage, namespaced</h3>
+            <h3>document.cookie, per session</h3>
             <p>
-              document.cookie, localStorage, IndexedDB, Cache Storage, and
-              BroadcastChannel are scoped to the session while the origin in the address
-              bar stays real.
+              Page JavaScript on a managed tab sees that session’s cookies, not Chrome’s
+              shared jar. localStorage, IndexedDB, and Cache Storage are specified and
+              not virtualized yet.
             </p>
           </article>
           <article class="card">
@@ -247,17 +319,23 @@
           <p class="kicker">Honesty</p>
           <h2>Isolation has edges. We name them.</h2>
           <p>
-            Strong for application cookies and page storage. Not a second Chromium
-            profile. Do not imply otherwise in high-assurance work.
+            Strong for application cookies and <code>document.cookie</code>. Not a second
+            Chromium profile. Do not imply otherwise in high-assurance work.
           </p>
         </div>
         <div class="limits">
           <article class="card">
-            <h3>Isolated in V1</h3>
+            <h3>Isolated today</h3>
             <p>
-              Request Cookie headers, native Set-Cookie absorption, document.cookie,
-              localStorage, IndexedDB names, Cache Storage, BroadcastChannel, and Web
-              Locks — between sessions, on managed sites.
+              Request Cookie headers, native Set-Cookie absorption, and
+              <code>document.cookie</code> — between sessions, on managed sites.
+            </p>
+          </article>
+          <article class="card">
+            <h3>Not yet</h3>
+            <p>
+              localStorage, page IndexedDB, Cache Storage, BroadcastChannel, and Web
+              Locks. Specified. Not virtualized in this build.
             </p>
           </article>
           <article class="card">
@@ -271,6 +349,30 @@
         </div>
       </section>
 
+      <section class="wrap" id="shortcuts">
+        <div class="section-head">
+          <p class="kicker">Keyboard</p>
+          <h2>Stay in the tab. Switch the jar.</h2>
+        </div>
+        <div class="keys">
+          <article class="card">
+            <p class="combo"><kbd>Alt</kbd><kbd>Shift</kbd><kbd>S</kbd></p>
+            <h3>Session switcher</h3>
+            <p>Open the popup for the current site.</p>
+          </article>
+          <article class="card">
+            <p class="combo"><kbd>Alt</kbd><kbd>Shift</kbd><kbd>T</kbd></p>
+            <h3>Temporary session</h3>
+            <p>New logged-out tab. Jar deleted with the last tab.</p>
+          </article>
+          <article class="card">
+            <p class="combo">Commands</p>
+            <h3>Next, previous, duplicate</h3>
+            <p>Bind the current tab, or open this page in another session.</p>
+          </article>
+        </div>
+      </section>
+
       <section class="wrap" id="privacy">
         <div class="privacy">
           <div>
@@ -278,7 +380,8 @@
             <h2>Your sessions never leave this machine.</h2>
             <p>
               No product analytics. No cloud account. No remote fonts in the extension.
-              Encrypted backups use a passphrase that is never stored. Read the
+              Host access is requested when you isolate a site — not for every website at
+              install. Read the
               <a href="./privacy.html">privacy policy</a>
               and
               <a
@@ -292,7 +395,7 @@
             <li>Session metadata in chrome.storage.local</li>
             <li>Tab bindings in chrome.storage.session</li>
             <li>Cookie jars in extension IndexedDB</li>
-            <li>Optional encrypted .sessionvault export</li>
+            <li>No upload unless you export a file yourself</li>
           </ul>
         </div>
       </section>
@@ -302,8 +405,9 @@
           <p class="kicker">Install</p>
           <h2>Load the unpacked build.</h2>
           <p>
-            The Chrome Web Store listing is not published yet. Build locally, then load
-            the folder in chrome://extensions with Developer mode on.
+            The Chrome Web Store listing is not published yet. This is a development
+            build: cookie isolation is in, page-storage virtualization is not. Build
+            locally, then load the folder in chrome://extensions with Developer mode on.
           </p>
           <ol class="ol">
             <li>Run the commands in the terminal</li>
@@ -327,11 +431,15 @@ pnpm build</code></pre>
         <span class="footer-author">Mohamad Parsaeifard</span>
       </p>
       <p class="footer-muted">
+        <a href="./">Home</a>
+        ·
         <a href="./privacy.html">Privacy</a>
+        ·
+        <a href="https://github.com/Mohpfd96/session-vault">Source</a>
         ·
         <a href="https://github.com/Mohpfd96/session-vault/blob/main/LICENSE">GPLv3</a>
         ·
-        <a href="https://github.com/Mohpfd96">Commercial license — get in touch</a>
+        <a href="https://github.com/Mohpfd96">Commercial license</a>
       </p>
     </footer>
   </body>

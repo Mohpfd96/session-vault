@@ -25,14 +25,8 @@ export default defineConfig({
       'webNavigation',
       'contextMenus',
       'sidePanel',
-      'alarms',
       'cookies',
     ],
-    optional_permissions: [
-      'tabGroups',
-      'browsingData',
-      'unlimitedStorage',
-    ] as unknown as ('tabGroups' | 'browsingData')[],
     optional_host_permissions: ['*://*/*'],
     icons: {
       16: 'icon-16.png',

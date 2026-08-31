@@ -10,23 +10,52 @@
     />
     <link rel="canonical" href="https://mohpfd96.github.io/session-vault/privacy.html" />
     <meta name="theme-color" content="#0f766e" />
+    <meta property="og:title" content="Privacy Policy — Session Vault" />
+    <meta
+      property="og:description"
+      content="Session Vault keeps session data on this device. No analytics, no cloud account, no sale of data."
+    />
+    <meta property="og:type" content="website" />
+    <meta
+      property="og:url"
+      content="https://mohpfd96.github.io/session-vault/privacy.html"
+    />
+    <meta
+      property="og:image"
+      content="https://mohpfd96.github.io/session-vault/og.png"
+    />
     <link rel="icon" href="./icon.svg" type="image/svg+xml" />
+    <link rel="apple-touch-icon" href="./apple-touch-icon.png" />
     <link rel="stylesheet" href="./styles.css" />
   </head>
   <body>
     <a class="skip" href="#main">Skip to content</a>
-    <header class="wrap nav">
-      <a class="brand" href="./">
-        <img src="./icon.svg" width="36" height="36" alt="" />
-        Session Vault
-      </a>
-      <nav class="nav-links" aria-label="Primary">
-        <a href="./#how">How it works</a>
-        <a href="./privacy.html" aria-current="page">Privacy</a>
-        <a href="./#install">Install</a>
-        <a href="https://github.com/Mohpfd96/session-vault">GitHub</a>
-        <a class="btn btn-primary" href="./#install">Load in Chrome</a>
-      </nav>
+    <header class="nav-bar">
+      <div class="wrap nav">
+        <a class="brand" href="./">
+          <img src="./icon.svg" width="36" height="36" alt="" />
+          Session Vault
+        </a>
+        <details class="nav-menu">
+          <summary>Menu</summary>
+          <nav aria-label="Mobile">
+            <a href="./#how">How it works</a>
+            <a href="./#product">Product</a>
+            <a href="./privacy.html" aria-current="page">Privacy</a>
+            <a href="./#install">Install</a>
+            <a href="https://github.com/Mohpfd96/session-vault">GitHub</a>
+            <a class="btn btn-primary" href="./#install">Load in Chrome</a>
+          </nav>
+        </details>
+        <nav class="nav-links" aria-label="Primary">
+          <a href="./#how">How it works</a>
+          <a href="./#product">Product</a>
+          <a href="./privacy.html" aria-current="page">Privacy</a>
+          <a href="./#install">Install</a>
+          <a href="https://github.com/Mohpfd96/session-vault">GitHub</a>
+          <a class="btn btn-primary" href="./#install">Load in Chrome</a>
+        </nav>
+      </div>
     </header>
 
     <main id="main" class="wrap prose">
@@ -79,11 +108,6 @@
         isolation will not start for that site.
       </p>
       <p>
-        Optional <code>unlimitedStorage</code> may be requested in the same flow so large
-        cookie jars are not capped by Chrome’s default quota. Denying it does not grant
-        extra host access.
-      </p>
-      <p>
         Sensitive APIs such as <code>cookies</code>, <code>scripting</code>, and
         <code>declarativeNetRequestWithHostAccess</code> exist only to rewrite Cookie
         headers for the tabs you bind to a session. They are not used to harvest
@@ -131,11 +155,15 @@
         <span class="footer-author">Mohamad Parsaeifard</span>
       </p>
       <p class="footer-muted">
+        <a href="./">Home</a>
+        ·
         <a href="./privacy.html">Privacy</a>
+        ·
+        <a href="https://github.com/Mohpfd96/session-vault">Source</a>
         ·
         <a href="https://github.com/Mohpfd96/session-vault/blob/main/LICENSE">GPLv3</a>
         ·
-        <a href="https://github.com/Mohpfd96">Commercial license — get in touch</a>
+        <a href="https://github.com/Mohpfd96">Commercial license</a>
       </p>
     </footer>
   </body>

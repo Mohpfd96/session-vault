@@ -247,7 +247,7 @@ Side panel: Sessions list + Session detail + Domain detail. Cookie inspector, ac
 
 ## Permissions
 
-Required in this build: `tabs`, `activeTab`, `storage`, `scripting`, `declarativeNetRequestWithHostAccess`, `webRequest`, `webNavigation`, `contextMenus`, `sidePanel`, `alarms`, `cookies`. Host access is `optional_host_permissions` (`*://*/*` as the request ceiling) and is granted per site when the user isolates it. `unlimitedStorage` is optional.
+Required in this build: `tabs`, `activeTab`, `storage`, `scripting`, `declarativeNetRequestWithHostAccess`, `webRequest`, `webNavigation`, `contextMenus`, `sidePanel`, `cookies`. Host access is `optional_host_permissions` (`*://*/*` as the request ceiling) and is granted per site when the user isolates it.
 
 Store listing privacy policy: [https://mohpfd96.github.io/session-vault/privacy.html](https://mohpfd96.github.io/session-vault/privacy.html). See [permissions.md](./permissions.md) and [chrome-web-store.md](./chrome-web-store.md).
 

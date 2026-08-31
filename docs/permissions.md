@@ -17,16 +17,13 @@ Session Vault requests the minimum capabilities needed to isolate site sessions.
 | `webNavigation`                       | Session inheritance, redirects, safe `about:blank` navigation.                                                                                                           |
 | `contextMenus`                        | Toolbar “Open side panel” today. Link/tab session menus are not shipped.                                                                                                 |
 | `sidePanel`                           | Main management UI.                                                                                                                                                      |
-| `alarms`                              | Temporary-session grace cleanup and recovery sweeps (grace cleanup not implemented yet).                                                                                 |
 | `cookies`                             | One-time native cookie import into a Default session when a domain is first managed.                                                                                     |
 
-## Optional (declared)
+## Optional (this build)
 
-| Permission         | Why                                                      | Requested when                                  |
-| ------------------ | -------------------------------------------------------- | ----------------------------------------------- |
-| `unlimitedStorage` | Large cookie jars beyond Chrome’s default quota.         | Same user gesture as the first site host prompt |
-| `tabGroups`        | Presentation only. Never the source of session identity. | Not requested yet                               |
-| `browsingData`     | CLEAN compatibility mode (user-confirmed origin wipe).   | Not requested yet                               |
+None. Cookie jars use extension IndexedDB under Chrome’s default quota.
+
+Reserved for later (not declared, so Chrome Web Store will not ask for a justification): `alarms` (temporary-session grace sweeps), `unlimitedStorage` (large jars), `tabGroups` (presentation only), `browsingData` (CLEAN origin wipe).
 
 ## Host access
 
